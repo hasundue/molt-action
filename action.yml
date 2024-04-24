@@ -1,0 +1,36 @@
+name: molt-action
+
+description: Keep your Deno projects up-to-date with jsr.io/@molt
+
+branding:
+  icon: 'refresh-cw'
+  color: 'gray-dark'
+
+inputs:
+  root:
+    description: Root directory of your project
+    required: true
+    default: ./
+
+  config:
+    description: Relative path to your Deno configuration file from the project root
+    required: false
+    default: deno.json{,c}
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+    - name: Cache dependencies
+      run: deno task cache
+
+    - name: Run molt-action
+      run: deno task run
+      with:
+        root: ./test/fixture/
+
