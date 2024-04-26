@@ -1,4 +1,3 @@
-import { assertSpyCall, spy } from "@std/testing/mock";
 import main from "./main.ts";
 
 const context = {

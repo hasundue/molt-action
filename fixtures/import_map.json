@@ -1,6 +1,0 @@
-{
-  "imports": {
-    "@actions/core": "./mock/@actions/core.ts",
-    "@actions/github": "./mock/@actions/github.ts"
-  }
-}

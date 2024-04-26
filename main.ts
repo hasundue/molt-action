@@ -3,6 +3,13 @@ import * as github from "@actions/github";
 import { collect } from "@molt/core";
 import { join } from "@std/path";
 
+interface ActionContext {
+  repo: {
+    owner: string;
+    repo: string;
+  };
+}
+
 interface ActionInputs {
   /**
    * Root directory of the target project.
@@ -11,15 +18,15 @@ interface ActionInputs {
   root: string;
   /**
    * Relative path to the Deno configuration file.
-   * @default "deno.json" or "deno.jsonc"
+   * @default ""
    */
-  config?: string;
+  config: string;
 }
 
-interface ActionContext {
-  repo: {
-    owner: string;
-    repo: string;
+export function getInputs(): ActionInputs {
+  return {
+    root: actions.getInput("root", { required: true }),
+    config: actions.getInput("config"),
   };
 }
 
@@ -29,21 +36,12 @@ export default async function main(
 ) {
   console.log(context);
   console.log(inputs);
-  const config = inputs.config ?? "deno.json{,c}";
+  const config = inputs.config.length ? inputs.config : "deno.json{,c}";
   console.log(config);
   const updates = await collect(
     join(inputs.root, "deno.json"),
   );
   console.log(updates);
-}
-
-function getInputs(): ActionInputs {
-  const root = actions.getInput("root", { required: true });
-  const config = actions.getInput("config");
-  return {
-    root,
-    config: config.length ? config : undefined,
-  };
 }
 
 if (import.meta.main) {
