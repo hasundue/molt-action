@@ -1,18 +1,18 @@
-import * as actions from "@actions/core";
+import actions from "@actions/core";
 import * as github from "@actions/github";
 import { collect } from "@molt/core";
 import { join } from "@std/path";
 
-interface ActionContext {
+export interface ActionContext {
   repo: {
     owner: string;
     repo: string;
   };
 }
 
-interface ActionInputs {
+export interface ActionInputs {
   /**
-   * Root directory of the target project.
+   * Root directory of the project to analyze.
    * @default "."
    */
   root: string;
@@ -21,12 +21,19 @@ interface ActionInputs {
    * @default ""
    */
   config: string;
+  /**
+   * Globs to search for source files.
+   * @example ["main.ts", "test.ts"]
+   * @default ["deno.json{,c}"]
+   */
+  source: string[];
 }
 
 export function getInputs(): ActionInputs {
   return {
     root: actions.getInput("root", { required: true }),
     config: actions.getInput("config"),
+    source: actions.getMultilineInput("source", { required: true }),
   };
 }
 
