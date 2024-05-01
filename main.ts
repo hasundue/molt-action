@@ -2,6 +2,7 @@ import actions from "@actions/core";
 import * as github from "@actions/github";
 import { collect } from "@molt/core";
 import { join } from "@std/path";
+import { getInputs } from "./src/inputs.ts";
 
 export interface ActionContext {
   repo: {
@@ -10,38 +11,11 @@ export interface ActionContext {
   };
 }
 
-export interface ActionInputs {
-  /**
-   * Root directory of the project to analyze.
-   * @default "."
-   */
-  root: string;
-  /**
-   * Relative path to the Deno configuration file.
-   * @default ""
-   */
-  config: string;
-  /**
-   * Globs to search for source files.
-   * @example ["main.ts", "test.ts"]
-   * @default ["deno.json{,c}"]
-   */
-  source: string[];
-}
-
-export function getInputs(): ActionInputs {
-  return {
-    root: actions.getInput("root", { required: true }),
-    config: actions.getInput("config"),
-    source: actions.getMultilineInput("source", { required: true }),
-  };
-}
-
 export default async function main(
   context: ActionContext,
-  inputs: ActionInputs,
 ) {
   console.log(context);
+  const inputs = getInputs();
   console.log(inputs);
   const config = inputs.config.length ? inputs.config : "deno.json{,c}";
   console.log(config);
@@ -53,8 +27,7 @@ export default async function main(
 
 if (import.meta.main) {
   try {
-    const inputs = getInputs();
-    await main(github.context, inputs);
+    await main(github.context);
   } catch (error) {
     actions.setFailed(error.message);
   }

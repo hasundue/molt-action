@@ -1,7 +1,5 @@
-import actions from "@actions/core";
-import { assertSpyCalls, stub } from "@std/testing/mock";
-import { assertEquals, assertObjectMatch } from "@std/assert";
-import main, { getInputs } from "../main.ts";
+import main from "../main.ts";
+import { ActionInputsMock } from "./mock.ts";
 
 const context = {
   repo: {
@@ -10,45 +8,11 @@ const context = {
   },
 };
 
-Deno.test("getInputs", () => {
-  const getInputStub = stub(
-    actions,
-    "getInput",
-    (name) =>
-      ({
-        root: "test/fixtures",
-        config: "deno.json",
-      })[name] ?? "",
-  );
-  const getMultiLineInputStub = stub(
-    actions,
-    "getMultilineInput",
-    (name) =>
-      ({
-        source: ["mod.ts", "deps.ts"],
-      })[name] ?? [],
-  );
-  const actual = getInputs();
-  assertObjectMatch(
-    actual,
-    {
-      root: "test/fixtures",
-      config: "deno.json",
-    },
-  );
-  assertEquals(
-    actual.source,
-    ["mod.ts", "deps.ts"],
-  );
-  assertSpyCalls(getInputStub, 2);
-  assertSpyCalls(getMultiLineInputStub, 1);
-});
-
 Deno.test("main", async () => {
-  const inputs = {
+  using _mock = new ActionInputsMock({
     root: "test/fixtures",
     config: "deno.json",
     source: ["deno.json"],
-  };
-  await main(context, inputs);
+  });
+  await main(context);
 });
