@@ -34,16 +34,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v1
+      - name: Run Action
+        uses: ./
         with:
-          deno-version: v1.x
-
-      - name: Cache dependencies
-        run: deno task cache
-
-      - name: Run molt-action
-        run: deno test -A
-        with:
-          root: ./test/fixture/
-
+          config: deno.json
+          root: ./test/fixtures/
+          source: |
+            mod.ts
+            deps.ts

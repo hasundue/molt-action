@@ -22,6 +22,14 @@ inputs:
     required: true
     default: deno.json{,c}
 
+permissions:
+  contents: read
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash
+
 runs:
   using: composite
 
@@ -31,11 +39,20 @@ runs:
       with:
         deno-version: v1.x
 
+    - name: Restore cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.deno
+          ~/.cache/deno
+          ~/Library/Caches/deno
+          ~/AppData/Local/deno
+        key: molt-action-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('deno.lock') }}
+        restore-keys: |
+          molt-action-${{ runner.arch }}-${{ runner.os }}
+
     - name: Cache dependencies
       run: deno task cache
 
-    - name: Run molt-action
+    - name: Run main script
       run: deno task run
-      with:
-        root: ./test/fixture/
-
