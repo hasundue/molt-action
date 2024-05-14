@@ -2,7 +2,8 @@ import actions from "@actions/core";
 import * as github from "@actions/github";
 import { collect } from "@molt/core";
 import { join } from "@std/path";
-import { getInputs } from "./src/inputs.ts";
+import { ActionInputs, getInputs } from "./src/inputs.ts";
+import { fromInputs } from "./src/params.ts";
 
 export interface ActionContext {
   repo: {
@@ -13,21 +14,22 @@ export interface ActionContext {
 
 export default async function main(
   context: ActionContext,
+  inputs: ActionInputs,
 ) {
   console.log(context);
-  const inputs = getInputs();
-  console.log(inputs);
-  const config = inputs.config.length ? inputs.config : "deno.json{,c}";
-  console.log(config);
+
+  const params = await fromInputs(inputs);
+  console.log(params);
+
   const updates = await collect(
-    join(inputs.root, "deno.json"),
+    params.source.map((source) => join(params.root, source)),
   );
   console.log(updates);
 }
 
 if (import.meta.main) {
   try {
-    await main(github.context);
+    await main(github.context, getInputs());
   } catch (error) {
     actions.setFailed(error.message);
   }

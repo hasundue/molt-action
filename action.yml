@@ -1,26 +1,42 @@
 name: molt-action
 
-description: Keep your Deno projects up-to-date with jsr.io/@molt
+description: Create a pull request to update dependencies with jsr.io/@molt
 
 branding:
   icon: 'refresh-cw'
   color: 'gray-dark'
 
 inputs:
-  config:
-    description: Relative path to your Deno configuration file from the project root
+  commit-prefix:
+    description: >
+      Prefix for commit messages. Defaults to `chore` if the repository
+      follows Conventional Commits, otherwise none.
     required: false
-    default: deno.json{,c}
+
+  group-by:
+    description: >
+      Create a single pull request for each specified group. The value must be
+      `dependency`, or unspecified. Other options such as `package` and `repository`
+      may be supported in the future.
+    required: false
+
+  resolve-imports:
+    description: Resolve local imports to find dependencies recursively.
+    required: false
+    default: false
 
   root:
-    description: Root directory of your project
-    required: true
-    default: ./
+    description: >
+      Root directory of the relevant source files. Defaults to the shallowest
+      directory containing `deno.json` or `deno.jsonc` if available, otherwise
+      the repository root.
+    required: false
 
   source:
-    description: Glob patterns to match source files
-    required: true
-    default: deno.json{,c}
+    description: >
+      Glob patterns to match source files. Defaults to `deno.json{,c}` if
+      available with imports, otherwise `**/*.ts`.
+    required: false
 
 permissions:
   contents: read

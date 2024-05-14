@@ -1,7 +1,7 @@
 {
   "tasks": {
     "act": "act -j integration --matrix os:ubuntu-latest",
-    "cache": "deno cache main.ts ./test/*.ts ./src/*.ts",
+    "cache": "deno cache main.ts",
     "lock": "deno task cache --lock-write",
     "run": "deno run --no-prompt --allow-env --allow-read --allow-write --allow-net main.ts",
     "test": "deno test --allow-read --allow-write=. --allow-net --allow-run=deno"

@@ -2,27 +2,39 @@ import actions from "@actions/core";
 
 export interface ActionInputs {
   /**
-   * Root directory of the project to analyze.
-   * @default "."
-   */
-  root: string;
-  /**
    * Relative path to the Deno configuration file.
-   * @default ""
+   * @example "deno.json", "deno.jsonc"
    */
-  config: string;
+  config?: string;
+  /**
+   * Prefix for commit messages.
+   * @example "chore", "fix"
+   */
+  prefix?: string;
+  /**
+   * Whether to resolve local imports to find dependencies recursively.
+   * @default false
+   */
+  resolve?: boolean;
+  /**
+   * Root directory of the project to analyze.
+   * @example "src", "."
+   */
+  root?: string;
   /**
    * Globs to search for source files.
    * @example ["main.ts", "test.ts"]
-   * @default ["deno.json{,c}"]
    */
-  source: string[];
+  source?: string[];
 }
 
 export function getInputs(): ActionInputs {
+  const source = actions.getMultilineInput("source");
   return {
-    root: actions.getInput("root", { required: true }),
-    config: actions.getInput("config"),
-    source: actions.getMultilineInput("source", { required: true }),
+    config: actions.getInput("config") || undefined,
+    prefix: actions.getInput("commit-prefix") || undefined,
+    resolve: actions.getBooleanInput("resolve-imports"),
+    root: actions.getInput("root") || undefined,
+    source: source.length ? source : undefined,
   };
 }

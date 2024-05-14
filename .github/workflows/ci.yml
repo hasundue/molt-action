@@ -34,11 +34,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run Action
+      - name: Run action
         uses: ./
         with:
           config: deno.json
-          root: ./test/fixtures/
+          root: test/fixtures
           source: |
-            mod.ts
+            main.ts
             deps.ts
