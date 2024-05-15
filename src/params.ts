@@ -8,14 +8,14 @@ import { ActionInputs } from "./inputs.ts";
 export type ActionParams = Required<ActionInputs>;
 
 export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
-  const { config, root } = inputs.root
+  const { config, root } = inputs.root.length
     ? {
       config: await findConfig(inputs.root),
       root: inputs.root,
     }
     : await findRootAndConfig();
 
-  const source = inputs.source?.length ? inputs.source : [
+  const source = inputs.source.length ? inputs.source : [
     config && await hasImports(config) ? config : "./**/*.ts",
   ];
   const prefix = inputs.prefix ?? "chore: ";
@@ -63,8 +63,5 @@ export function parseComitter(committer: string) {
       `${committer} is not a valid format for a committer. Expected "Display Name <email@address.com>".`,
     );
   }
-  return {
-    name: matched.name.trim(),
-    email: matched.email.trim(),
-  };
+  return { name, email };
 }

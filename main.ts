@@ -23,17 +23,14 @@ export default async function main(
       params.prefix + `bump ${group} to ${version!.to}`,
     groupBy: (update) => update.to.name,
   });
-
   actions.setOutput("dependencies", commits.commits.map((it) => it.group));
 
   if (!params.commit) return;
 
   const { name, email } = parseComitter(params.committer);
-
   await new Deno.Command("git", {
     args: ["config", "--global", "user.name", name],
   }).output();
-
   await new Deno.Command("git", {
     args: ["config", "--global", "user.email", email],
   }).output();
