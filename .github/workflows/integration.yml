@@ -27,6 +27,12 @@ jobs:
           pull-request: false
           root: test/fixtures
 
+      - uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.action.outputs.summary }}
+          expected: 'chore: bump @molt/core to '
+          comparison: startsWith
+
   check:
     needs: action
     runs-on: ubuntu-latest
@@ -38,5 +44,5 @@ jobs:
     steps:
       - uses: nick-fields/assert-action@v2
         with:
-          actual: '@molt/core'
-          expected: ${{ matrix.dependency }}
+          actual: ${{ matrix.dependency }}
+          expected: '@molt/core'

@@ -18,7 +18,7 @@ inputs:
 
   commit-prefix:
     description: Prefix for commit messages.
-    default: 'chore: '
+    default: 'chore:'
 
   committer:
     description: >
@@ -48,6 +48,14 @@ outputs:
   dependencies:
     description: A JSON list of updated dependencies.
     value: ${{ steps.main.outputs.dependencies }}
+
+  summary:
+    description: A summary of the changes made.
+    value: ${{ steps.main.outputs.summary }}
+
+  report:
+    description: A detailed report of the changes made in Markdown format.
+    value: ${{ steps.main.outputs.report }}
 
 permissions:
   contents: read

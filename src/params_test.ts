@@ -1,6 +1,6 @@
-import { assertObjectMatch, assertThrows } from "@std/assert";
+import { assertObjectMatch } from "@std/assert";
 import { defaults } from "./inputs.ts";
-import { fromInputs, parseComitter } from "./params.ts";
+import { fromInputs } from "./params.ts";
 
 Deno.test("fromInputs - default source (deno.json)", async () => {
   assertObjectMatch(
@@ -55,24 +55,4 @@ Deno.test("fromInputs - default inputs", async () => {
       source: ["deno.json"],
     },
   );
-});
-
-Deno.test("parseComitter - valid committer", () => {
-  assertObjectMatch(
-    parseComitter(
-      "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
-    ),
-    {
-      name: "github-actions[bot]",
-      email: "41898282+github-actions[bot]@users.noreply.github.com",
-    },
-  );
-});
-
-Deno.test("parseComitter - invalid committers", () => {
-  [
-    "invalid",
-    "invalid <>",
-    "<invalid>",
-  ].forEach((committer) => assertThrows(() => parseComitter(committer)));
 });

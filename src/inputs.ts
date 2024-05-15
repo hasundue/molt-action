@@ -7,7 +7,7 @@ export interface ActionInputs {
   /** @default "github-actions[bot]" <41898282+github-actions[bot]@users.noreply.github.com> */
   committer: string;
 
-  /** @default "chore: " */
+  /** @default "chore:" */
   prefix: string;
 
   /** @default false */
@@ -23,7 +23,7 @@ export interface ActionInputs {
 export const defaults: ActionInputs = {
   commit: true,
   committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
-  prefix: "chore: ",
+  prefix: "chore:",
   resolve: false,
   root: "",
   source: [],

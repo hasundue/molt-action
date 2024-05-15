@@ -1,4 +1,3 @@
-import { match, placeholder as _ } from "@core/match";
 import { walk } from "@std/fs";
 import { parse } from "@std/jsonc";
 import { dirname } from "@std/path";
@@ -18,7 +17,7 @@ export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
   const source = inputs.source.length ? inputs.source : [
     config && await hasImports(config) ? config : "./**/*.ts",
   ];
-  const prefix = inputs.prefix ?? "chore: ";
+  const prefix = inputs.prefix.length ? `${inputs.prefix} ` : "";
   return { ...inputs, root, source, prefix };
 }
 
@@ -49,19 +48,4 @@ async function hasImports(config?: string): Promise<boolean> {
   if (!config) return false;
   const jsonc = parse(await Deno.readTextFile(config));
   return jsonc !== null && typeof jsonc === "object" && "imports" in jsonc;
-}
-
-export function parseComitter(committer: string) {
-  const pattern = _`${_("name")} <${_("email")}>`;
-  const matched = match(pattern, committer);
-
-  const name = matched?.name.trim();
-  const email = matched?.email.trim();
-
-  if (!matched || !name || !email) {
-    throw new Error(
-      `${committer} is not a valid format for a committer. Expected "Display Name <email@address.com>".`,
-    );
-  }
-  return { name, email };
 }

@@ -3,7 +3,9 @@ import * as github from "@actions/github";
 import { collect, createCommitSequence, execute } from "@molt/core";
 import { join } from "@std/path";
 import { ActionInputs, getInputs } from "./src/inputs.ts";
-import { fromInputs, parseComitter } from "./src/params.ts";
+import { fromInputs } from "./src/params.ts";
+import * as summary from "./src/summary.ts";
+import { parseGitUser } from "./src/strings.ts";
 
 export default async function main(
   inputs: ActionInputs,
@@ -20,14 +22,16 @@ export default async function main(
 
   const commits = createCommitSequence(result, {
     composeCommitMessage: ({ version, group }) =>
-      params.prefix + `bump ${group} to ${version!.to}`,
+      params.prefix + `update ${group} to ${version!.to}`,
     groupBy: (update) => update.to.name,
   });
+
   actions.setOutput("dependencies", commits.commits.map((it) => it.group));
+  actions.setOutput("summary", summary.fromCommitSequence(commits, params));
 
   if (!params.commit) return;
 
-  const { name, email } = parseComitter(params.committer);
+  const { name, email } = parseGitUser(params.committer);
   await new Deno.Command("git", {
     args: ["config", "--global", "user.name", name],
   }).output();
