@@ -37,8 +37,5 @@ jobs:
       - name: Run action
         uses: ./
         with:
-          config: deno.json
+          pull-request: false
           root: test/fixtures
-          source: |
-            main.ts
-            deps.ts

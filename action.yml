@@ -7,6 +7,11 @@ branding:
   color: 'gray-dark'
 
 inputs:
+  commit:
+    description: Whether to commit changes to the local git repository.
+    required: false
+    default: true
+
   commit-prefix:
     description: >
       Prefix for commit messages. Defaults to `chore` if the repository
@@ -25,6 +30,12 @@ inputs:
     required: false
     default: false
 
+  pull-request:
+    description: >
+      Whether to create a pull request to update dependencies.
+    required: false
+    default: true
+
   root:
     description: >
       Root directory of the relevant source files. Defaults to the shallowest
@@ -37,6 +48,11 @@ inputs:
       Glob patterns to match source files. Defaults to `deno.json{,c}` if
       available with imports, otherwise `**/*.ts`.
     required: false
+
+outputs:
+  dependencies:
+    description: A JSON list of updated dependencies.
+    value: ${{ steps.main.outputs.dependencies }}
 
 permissions:
   contents: read
@@ -70,5 +86,6 @@ runs:
     - name: Cache dependencies
       run: deno task cache
 
-    - name: Run main script
+    - id: main
+      name: Run main script
       run: deno task run

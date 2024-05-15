@@ -4,8 +4,7 @@ import { dirname } from "@std/path";
 
 import { ActionInputs } from "./inputs.ts";
 
-export interface ActionParams {
-  config?: string;
+export interface ActionParams extends ActionInputs {
   root: string;
   source: string[];
 }
@@ -21,7 +20,7 @@ export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
   const source = inputs.source?.length ? inputs.source : [
     config && await hasImports(config) ? config : "./**/*.ts",
   ];
-  return { config, root, source };
+  return { ...inputs, config, root, source };
 }
 
 async function findConfig(root: string): Promise<string | undefined> {
