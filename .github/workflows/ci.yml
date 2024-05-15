@@ -12,30 +12,8 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
+  test:
+    uses: hasundue/actions/.github/workflows/test-deno.yml@main
   integration:
-    name: Integration Test
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run action
-        uses: ./
-        with:
-          pull-request: false
-          root: test/fixtures
+    uses: ./.github/workflows/integration.yml

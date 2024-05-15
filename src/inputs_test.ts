@@ -11,9 +11,6 @@ Deno.test("getInputs - default values", () => {
   ];
 
   assertObjectMatch(getInputs(), {
-    commit: false,
-    config: undefined,
-    prefix: undefined,
     resolve: false,
     root: undefined,
     source: undefined,
@@ -29,8 +26,6 @@ Deno.test("getInputs - custom values", () => {
       "getInput",
       (name) =>
         ({
-          config: "deno.json",
-          "commit-prefix": "fix",
           root: "src",
         })[name] ?? "",
     ),
@@ -39,7 +34,6 @@ Deno.test("getInputs - custom values", () => {
       "getBooleanInput",
       (name) =>
         ({
-          "commit": true,
           "resolve-imports": true,
         })[name] ?? false,
     ),
@@ -51,9 +45,6 @@ Deno.test("getInputs - custom values", () => {
   ];
 
   assertObjectMatch(getInputs(), {
-    commit: true,
-    config: "deno.json",
-    prefix: "fix",
     resolve: true,
     root: "src",
     source: ["mod.ts", "deps.ts"],

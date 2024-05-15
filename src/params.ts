@@ -1,18 +1,16 @@
+import { match, placeholder as _ } from "@core/match";
 import { walk } from "@std/fs";
 import { parse } from "@std/jsonc";
 import { dirname } from "@std/path";
 
 import { ActionInputs } from "./inputs.ts";
 
-export interface ActionParams extends ActionInputs {
-  root: string;
-  source: string[];
-}
+export type ActionParams = Required<ActionInputs>;
 
 export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
   const { config, root } = inputs.root
     ? {
-      config: inputs.config ?? await findConfig(inputs.root),
+      config: await findConfig(inputs.root),
       root: inputs.root,
     }
     : await findRootAndConfig();
@@ -20,7 +18,8 @@ export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
   const source = inputs.source?.length ? inputs.source : [
     config && await hasImports(config) ? config : "./**/*.ts",
   ];
-  return { ...inputs, config, root, source };
+  const prefix = inputs.prefix ?? "chore: ";
+  return { ...inputs, root, source, prefix };
 }
 
 async function findConfig(root: string): Promise<string | undefined> {
@@ -33,7 +32,7 @@ async function findConfig(root: string): Promise<string | undefined> {
 }
 
 async function findRootAndConfig(): Promise<
-  Pick<ActionParams, "config" | "root">
+  { config: string | undefined; root: string }
 > {
   let root = ".";
   let config = undefined;
@@ -50,4 +49,22 @@ async function hasImports(config?: string): Promise<boolean> {
   if (!config) return false;
   const jsonc = parse(await Deno.readTextFile(config));
   return jsonc !== null && typeof jsonc === "object" && "imports" in jsonc;
+}
+
+export function parseComitter(committer: string) {
+  const pattern = _`${_("name")} <${_("email")}>`;
+  const matched = match(pattern, committer);
+
+  const name = matched?.name.trim();
+  const email = matched?.email.trim();
+
+  if (!matched || !name || !email) {
+    throw new Error(
+      `${committer} is not a valid format for a committer. Expected "Display Name <email@address.com>".`,
+    );
+  }
+  return {
+    name: matched.name.trim(),
+    email: matched.email.trim(),
+  };
 }

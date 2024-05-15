@@ -1,6 +1,5 @@
 {
   "imports": {
-    "@actions/core": "npm:@actions/core@1.10.0",
     "@molt/core": "jsr:@molt/core@0.18.0"
   }
 }

@@ -1,0 +1,42 @@
+name: integration
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  runs-on: ubuntu-latest
+
+jobs:
+  action:
+    runs-on: ubuntu-latest
+
+    outputs:
+      dependencies: ${{ steps.action.outputs.dependencies }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: action
+        uses: ./
+        with:
+          commit: false
+          pull-request: false
+          root: test/fixtures
+
+  check:
+    needs: action
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        dependency: ${{ fromJSON(needs.action.outputs.dependencies) }}
+
+    steps:
+      - uses: nick-fields/assert-action@v2
+        with:
+          actual: '@molt/core'
+          expected: ${{ matrix.dependency }}

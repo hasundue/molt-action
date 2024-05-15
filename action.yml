@@ -7,47 +7,42 @@ branding:
   color: 'gray-dark'
 
 inputs:
+  author:
+    description: >
+      Author of the pull request in the format of `Display Name <email@adress.com>`.
+    default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
   commit:
-    description: Whether to commit changes to the local git repository.
-    required: false
+    description: Whether to commit changes locally.
     default: true
 
   commit-prefix:
-    description: >
-      Prefix for commit messages. Defaults to `chore` if the repository
-      follows Conventional Commits, otherwise none.
-    required: false
+    description: Prefix for commit messages.
+    default: 'chore: '
 
-  group-by:
+  committer:
     description: >
-      Create a single pull request for each specified group. The value must be
-      `dependency`, or unspecified. Other options such as `package` and `repository`
-      may be supported in the future.
-    required: false
+      Name of the committer in the format of `Display Name <email@address.com>`
+    default: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+  pull-request:
+    description: Whether to create a pull request.
+    default: true
 
   resolve-imports:
     description: Resolve local imports to find dependencies recursively.
-    required: false
     default: false
-
-  pull-request:
-    description: >
-      Whether to create a pull request to update dependencies.
-    required: false
-    default: true
 
   root:
     description: >
       Root directory of the relevant source files. Defaults to the shallowest
       directory containing `deno.json` or `deno.jsonc` if available, otherwise
       the repository root.
-    required: false
 
   source:
     description: >
       Glob patterns to match source files. Defaults to `deno.json{,c}` if
       available with imports, otherwise `**/*.ts`.
-    required: false
 
 outputs:
   dependencies:
@@ -89,3 +84,10 @@ runs:
     - id: main
       name: Run main script
       run: deno task run
+
+    - name: Create a pull request
+      uses: peter-evans/create-pull-request@v6
+      if: inputs.pull-request == 'true'
+      with:
+        author: ${{ inputs.author }}
+        commiter: ${{ inputs.committer }}
