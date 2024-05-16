@@ -1,7 +1,7 @@
 import actions from "@actions/core";
 import * as github from "@actions/github";
 import { collect, createCommitSequence, execute } from "@molt/core";
-import { join } from "@std/path";
+import { expandGlob } from "@std/fs";
 import { getInputs } from "./src/inputs.ts";
 import { fromInputs } from "./src/params.ts";
 import { parseGitUser } from "./src/strings.ts";
@@ -12,19 +12,26 @@ export default async function main() {
   actions.debug(JSON.stringify(github.context));
 
   const inputs = getInputs();
-  actions.debug(JSON.stringify(inputs));
+  actions.debug("inputs: " + JSON.stringify(inputs));
 
   const params = await fromInputs(inputs);
-  actions.debug(JSON.stringify(params));
+  actions.debug("params: " + JSON.stringify(params));
 
-  const result = await collect(
-    params.source.map((source) => join(params.root, source)),
-    { resolveLocal: params.resolve },
-  );
+  const paths: string[] = [];
+  for (const source of params.source) {
+    for await (const entry of expandGlob(source, { root: params.root })) {
+      if (entry.isFile) paths.push(entry.path);
+    }
+  }
+  actions.debug("paths: " + JSON.stringify(paths));
+
+  const result = await collect(paths, { resolveLocal: params.resolve });
 
   if (result.updates.length === 0) {
+    for (const output of ["updated", "summary", "report"]) {
+      actions.setOutput(output, "");
+    }
     actions.info("All dependencies are up-to-date.");
-    actions.setOutput("updated", "");
     return;
   }
 

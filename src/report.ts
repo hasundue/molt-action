@@ -42,8 +42,8 @@ export async function createReport(
         if (changelog) {
           content += "\n\n" + changelog;
         }
-      } catch (error) {
-        actions.warning(`Failed to generate changelog: ` + Deno.inspect(error));
+      } catch {
+        actions.warning(`Failed to generate changelog for ${to.name}`);
       }
       return content;
     }),
