@@ -66,7 +66,7 @@ inputs:
     description: >
       GitHub token with permissions `contents: write` and `pull-requests: write`
       or a repo scoped personal access token (PAT).
-    default: ${{ secrets.GITHUB_TOKEN }}
+    default: ${{ github.token }}
 
 outputs:
   report:
@@ -85,10 +85,6 @@ permissions:
   contents: write
   pull-requests: write
 
-defaults:
-  run:
-    shell: bash
-
 runs:
   using: composite
 
@@ -102,21 +98,24 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          ~/.deno
           ~/.cache/deno
-          ~/Library/Caches/deno
-          ~/AppData/Local/deno
-        key: molt-action-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('$LOCK_PATH') }}
-        restore-keys: |
-          molt-action-${{ runner.arch }}-${{ runner.os }}
-      env:
-        LOCK_PATH: ${{ github.action_path }}/deno.lock
+          ~/.deno
+          ~/.local/share/deno-wasmbuild
+        key: molt-action-${{ hashFiles('deno.lock') }}
+        restore-keys: molt-action
 
-    - id: main
-      name: Run main script
-      run: >
-        deno run --allow-env --allow-net --allow-read --allow-run=deno,git --allow-write
-        --no-prompt --unstable-kv ${{ github.action_path }}/main.ts 
+    - name: Run main script
+      id: main
+      run: deno task run 
+      shell: bash
+      env:
+        INPUT_COMMIT: ${{ inputs.commit }}
+        INPUT_COMMITTER: ${{ inputs.committer }}
+        INPUT_COMMIT-PREFIX: ${{ inputs.commit-prefix }}
+        INPUT_RESOLVE-IMPORTS: ${{ inputs.resolve-imports }}
+        INPUT_ROOT: ${{ inputs.root }}
+        INPUT_SOURCE: ${{ inputs.source }}
+
 
     - name: Create a pull request
       uses: peter-evans/create-pull-request@v6
