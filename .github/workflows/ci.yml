@@ -14,6 +14,8 @@ permissions:
 
 jobs:
   test:
-    uses: hasundue/actions/.github/workflows/test-deno.yml@main
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
   integration:
     uses: ./.github/workflows/integration.yml
