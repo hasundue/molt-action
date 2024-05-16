@@ -1,11 +1,12 @@
 {
   "tasks": {
     "act": "act -j integration",
-    "cache": "deno cache main.ts bin/*.ts",
+    "cache": "deno cache main.ts",
+    "check": "deno check --no-lock **/*.ts",
     "lock": "deno task cache --lock-write",
-    "pre-commit": "deno fmt && deno lint && deno task test && deno task lock",
+    "pre-commit": "deno fmt && deno lint && deno task check && deno task test && deno task lock",
     "run": "deno run --no-prompt --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=deno,git main.ts",
-    "test": "deno test --unstable-kv --env --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno"
+    "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv"
   },
   "imports": {
     "@actions/core": "npm:@actions/core@^1.10.1",

@@ -16,27 +16,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - id: action
+      - name: Run molt-action
+        id: action
         uses: ./
         with:
           commit: false
           pull-request: false
           root: test/fixtures
-          script: ./main.ts
 
-      - uses: nick-fields/assert-action@v2
+      - name: Check updated dependencies
+        uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.updated }}
           expected: '["@actions/core","@molt/core","deno.land/x/hono"]'
 
-      - uses: nick-fields/assert-action@v2
+      - name: Check summary
+        uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.summary }}
           expected: 'chore: update dependencies'
 
-      - uses: nick-fields/assert-action@v2
+      - name: Check report
+        uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.report }}
           expected: '### :package: @actions/core [1.10.0](https://www.npm.js/package/@actions/core/v/1.10.0) → '
@@ -46,28 +50,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - id: action
+      - name: Run molt-action
+        id: action
         uses: ./
         with:
           commit: false
           pull-request: false
           root: test/fixtures
-          script: ./main.ts
           source: '**/*.ts'
 
-      - uses: nick-fields/assert-action@v2
+      - name: Check updated dependencies
+        uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.updated }}
           expected: '["@std/assert","@std/collections"]'
 
-      - uses: nick-fields/assert-action@v2
+      - name: Check summary
+        uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.summary }}
           expected: 'chore: update @std/assert and @std/collections'
 
-      - uses: nick-fields/assert-action@v2
+      - name: Check report
+        uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.report }}
           expected: '### :package: @std/assert [0.224.0](https://jsr.io/@std/assert/0.224.0) → '
