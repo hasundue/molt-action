@@ -1,4 +1,21 @@
 {
+  "name": "@molt/action",
+  "version": "1.0.0-rc.1",
+  "exports": {
+    ".": "./main.ts"
+  },
+  "publish": {
+    "include": [
+      "**/*.ts",
+      "deno.json",
+      "deno.lock",
+      "README.md",
+      "LICENSE",
+    ],
+    "exclude": [
+      "**/*_test.ts",
+    ]
+  },
   "tasks": {
     "act": "act -j integration",
     "cache": "deno cache main.ts",

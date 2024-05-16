@@ -1,6 +1,7 @@
 name: molt-action
 
-description: Create a pull request to update dependencies with jsr.io/@molt
+description: >
+  Create pull requests to update dependencies in Deno projects with jsr.io/@molt
 
 branding:
   icon: 'refresh-cw'
@@ -58,12 +59,18 @@ inputs:
 
   script:
     description: Specifier of the main script.
-    default: jsr:@molt/action@^1.0.0
+    default: jsr:@molt/action@1.0.0-rc.1
 
   source:
     description: >
       Glob patterns to match source files. Defaults to `deno.json{,c}` if
       available with imports, otherwise `**/*.ts`.
+
+  token:
+    description: >
+      GitHub token with permissions `contents: write` and `pull-requests: write`
+      or a repo scoped personal access token (PAT).
+    default: ${{ secrets.GITHUB_TOKEN }}
 
 outputs:
   report:
@@ -126,3 +133,4 @@ runs:
         draft: ${{ inputs.draft }}
         labels: ${{ inputs.labels }}
         title: ${{ steps.main.outputs.summary }}
+        token: ${{ inputs.token }}
