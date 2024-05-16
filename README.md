@@ -9,11 +9,14 @@ A GitHub Action to update dependencies in Deno projects with
 ## Usage
 
 ```yaml
-- uses: actions/checkout@v4
+runs-on: ubuntu-latest
 
-- uses: hasundue/molt-action@v1.0.0-rc.1
-  with:
-    # optional inputs
+steps:
+    - uses: actions/checkout@v4
+
+    - uses: hasundue/molt-action@v1.0.0-rc.1
+      with:
+        # optional inputs
 ```
 
 ### Inputs

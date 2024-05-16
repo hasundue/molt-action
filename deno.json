@@ -5,7 +5,7 @@
     "check": "deno check --no-lock **/*.ts",
     "lock": "deno task cache --lock-write",
     "pre-commit": "deno fmt && deno lint && deno task check && deno task test && deno task lock",
-    "run": "deno run --no-prompt --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=deno,git main.ts",
+    "run": "deno run --allow-env --allow-read --allow-write --allow-net --allow-run=deno,git --no-prompt --unstable-kv ./main.ts",
     "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv"
   },
   "imports": {
