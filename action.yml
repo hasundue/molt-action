@@ -1,0 +1,144 @@
+name: molt-action
+
+description: >
+  Create pull requests to update dependencies in Deno projects with jsr.io/@molt
+
+branding:
+  icon: 'refresh-cw'
+  color: 'gray-dark'
+
+inputs:
+  author:
+    description: >
+      Author of the pull request in the format of `Display Name <email@adress.com>`.
+    default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
+  base:
+    description: >
+      Base branch to create the pull request against. Defaults to the branch
+      checked out in the workflow.
+
+  branch:
+    description: Head branch for the pull request.
+    default: molt-action
+
+  cache-key-suffix:
+    description: Suffix for the cache key (development purposes only).
+    default: 1.0.0-rc.1
+
+  commit:
+    description: Whether to commit changes locally.
+    default: true
+
+  commit-prefix:
+    description: Prefix for commit messages.
+    default: 'chore:'
+
+  committer:
+    description: >
+      Name of the committer in the format of `Display Name <email@address.com>`
+    default: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+  draft:
+    description: Whether to create a draft pull request.
+    default: false
+
+  labels:
+    description: >
+      Comma or newline-separated list of labels to add to the pull request.
+    default: 'dependencies'
+
+  pull-request:
+    description: Whether to create a pull request.
+    default: true
+
+  script:
+    description: >
+      Specifier for the main script to run (development purposes only).
+    default: jsr:@molt/action@1.0.0-rc.1
+
+  resolve-imports:
+    description: Resolve local imports to find dependencies recursively.
+    default: false
+
+  root:
+    description: >
+      Root directory of the relevant source files. Defaults to the shallowest
+      directory containing `deno.json` or `deno.jsonc` if available, otherwise
+      the repository root.
+
+  source:
+    description: >
+      Glob patterns to match source files. Defaults to `deno.json{,c}` if
+      available with imports, otherwise `**/*.ts`.
+
+  token:
+    description: >
+      GitHub token with permissions `contents: write` and `pull-requests: write`
+      or a repo scoped personal access token (PAT).
+    default: ${{ github.token }}
+
+outputs:
+  report:
+    description: A detailed report of the changes made in Markdown format.
+    value: ${{ steps.main.outputs.report }}
+
+  summary:
+    description: A summary of the changes made.
+    value: ${{ steps.main.outputs.summary }}
+
+  updated:
+    description: A JSON list of updated dependencies, or an empty string.
+    value: ${{ steps.main.outputs.updated }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.43
+
+    - name: Restore cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/deno
+          ~/.deno
+          ~/.local/share/deno-wasmbuild
+        key: molt-action-${{ inputs.cache-key-suffix }}
+        restore-keys: molt-action
+
+    - name: Run main script
+      id: main
+      run: >
+        deno run --allow-env --allow-read --allow-write --allow-net
+        --allow-run=deno,git --no-prompt --unstable-kv ${{ inputs.script }}
+      shell: bash
+      env:
+        INPUT_COMMIT: ${{ inputs.commit }}
+        INPUT_COMMITTER: ${{ inputs.committer }}
+        INPUT_COMMIT-PREFIX: ${{ inputs.commit-prefix }}
+        INPUT_RESOLVE-IMPORTS: ${{ inputs.resolve-imports }}
+        INPUT_ROOT: ${{ inputs.root }}
+        INPUT_SOURCE: ${{ inputs.source }}
+
+
+    - name: Create a pull request
+      uses: peter-evans/create-pull-request@v6
+      if: inputs.pull-request == 'true' && steps.main.outputs.updated != ''
+      with:
+        author: ${{ inputs.author }}
+        base: ${{ inputs.base }}
+        body: ${{ steps.main.outputs.report }}
+        branch: ${{ inputs.branch }}
+        delete-branch: true
+        draft: ${{ inputs.draft }}
+        labels: ${{ inputs.labels }}
+        title: ${{ steps.main.outputs.summary }}
+        token: ${{ inputs.token }}

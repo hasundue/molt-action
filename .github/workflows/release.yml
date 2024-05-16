@@ -1,0 +1,46 @@
+name: release
+
+on:
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Tag release
+        run: |
+          tag=v$(jq -r '.version' deno.json)
+          git tag $tag
+          git push origin $tag
+
+      - name: Move the major release tag
+        run: |
+          tag=v$(jq -r '.version' deno.json | cut -d '.' -f 1)-rc
+          git tag -d $tag 2>/dev/null || echo "Tag $tag not found"
+          git push origin :refs/tags/$tag
+          git tag $tag
+          git push origin $tag
+
+      - name: Move the minor release tag
+        run: |
+          tag=v$(jq -r '.version' deno.json | cut -d '.' -f 1,2)-rc
+          git tag -d $tag 2>/dev/null || echo "Tag $tag not found"
+          git push origin :refs/tags/$tag
+          git tag $tag
+          git push origin $tag
