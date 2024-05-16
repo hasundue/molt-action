@@ -1,0 +1,134 @@
+name: molt-action
+
+description: >
+  Create pull requests to update dependencies in Deno projects with jsr.io/@molt
+
+branding:
+  icon: 'refresh-cw'
+  color: 'gray-dark'
+
+inputs:
+  author:
+    description: >
+      Author of the pull request in the format of `Display Name <email@adress.com>`.
+    default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+
+  base:
+    description: Base branch for the pull request.
+    default: ${{ github.ref }}
+
+  branch:
+    description: Head branch for the pull request.
+    default: molt-action
+
+  commit:
+    description: Whether to commit changes locally.
+    default: true
+
+  commit-prefix:
+    description: Prefix for commit messages.
+    default: 'chore:'
+
+  committer:
+    description: >
+      Name of the committer in the format of `Display Name <email@address.com>`
+    default: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+  draft:
+    description: Whether to create a draft pull request.
+    default: false
+
+  labels:
+    description: >
+      Comma or newline-separated list of labels to add to the pull request.
+    default: 'dependencies'
+
+  pull-request:
+    description: Whether to create a pull request.
+    default: true
+
+  resolve-imports:
+    description: Resolve local imports to find dependencies recursively.
+    default: false
+
+  root:
+    description: >
+      Root directory of the relevant source files. Defaults to the shallowest
+      directory containing `deno.json` or `deno.jsonc` if available, otherwise
+      the repository root.
+
+  source:
+    description: >
+      Glob patterns to match source files. Defaults to `deno.json{,c}` if
+      available with imports, otherwise `**/*.ts`.
+
+  token:
+    description: >
+      GitHub token with permissions `contents: write` and `pull-requests: write`
+      or a repo scoped personal access token (PAT).
+    default: ${{ secrets.GITHUB_TOKEN }}
+
+outputs:
+  report:
+    description: A detailed report of the changes made in Markdown format.
+    value: ${{ steps.main.outputs.report }}
+
+  summary:
+    description: A summary of the changes made.
+    value: ${{ steps.main.outputs.summary }}
+
+  updated:
+    description: A JSON list of updated dependencies, or an empty string.
+    value: ${{ steps.main.outputs.updated }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup Deno
+      uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.43
+
+    - name: Restore cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.deno
+          ~/.cache/deno
+          ~/Library/Caches/deno
+          ~/AppData/Local/deno
+        key: molt-action-${{ runner.arch }}-${{ runner.os }}-${{ hashFiles('$LOCK_PATH') }}
+        restore-keys: |
+          molt-action-${{ runner.arch }}-${{ runner.os }}
+      env:
+        LOCK_PATH: ${{ github.action_path }}/deno.lock
+
+    - id: main
+      name: Run main script
+      run: >
+        deno run --allow-env --allow-net --allow-read --allow-run=deno,git --allow-write
+        --no-prompt --unstable-kv ${{ github.action_path }}/main.ts 
+
+    - name: Create a pull request
+      uses: peter-evans/create-pull-request@v6
+      if: inputs.pull-request == 'true' && steps.main.outputs.updated != ''
+      with:
+        author: ${{ inputs.author }}
+        base: ${{ inputs.base }}
+        body: ${{ steps.main.outputs.report }}
+        branch: ${{ inputs.branch }}
+        commiter: ${{ inputs.committer }}
+        delete-branch: true
+        draft: ${{ inputs.draft }}
+        labels: ${{ inputs.labels }}
+        title: ${{ steps.main.outputs.summary }}
+        token: ${{ inputs.token }}
