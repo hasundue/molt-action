@@ -1,5 +1,6 @@
 {
   "imports": {
+    "@molt/cli": "jsr:@molt/cli@0.18.0",
     "@molt/core": "jsr:@molt/core@0.18.0"
   }
 }

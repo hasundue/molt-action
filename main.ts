@@ -10,19 +10,25 @@ import { parseGitUser } from "./src/strings.ts";
 export default async function main(
   inputs: ActionInputs,
 ) {
-  console.log(github.context);
+  actions.debug(JSON.stringify(github.context));
 
   const params = await fromInputs(inputs);
-  console.log(params);
+  actions.debug(JSON.stringify(params));
 
   const result = await collect(
     params.source.map((source) => join(params.root, source)),
     { resolveLocal: params.resolve },
   );
 
+  if (result.updates.length === 0) {
+    actions.info("All dependencies are up-to-date.");
+    actions.setOutput("dependencies", []);
+    return;
+  }
+
   const commits = createCommitSequence(result, {
     composeCommitMessage: ({ version, group }) =>
-      params.prefix + `update ${group} to ${version!.to}`,
+      params.prefix + `bump ${group} to ${version!.to}`,
     groupBy: (update) => update.to.name,
   });
 

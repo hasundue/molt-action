@@ -32,7 +32,7 @@ Deno.test("fromCommitSequence - two commits", () => {
           // deno-lint-ignore no-explicit-any
           { group: "@molt/core" } as any,
           // deno-lint-ignore no-explicit-any
-          { group: "@molt/cli", } as any,
+          { group: "@molt/cli" } as any,
         ],
         options: {},
       },
@@ -50,9 +50,10 @@ Deno.test("fromCommitSequence - three commits", () => {
           // deno-lint-ignore no-explicit-any
           { group: "@molt/core" } as any,
           // deno-lint-ignore no-explicit-any
-          { group: "@molt/cli", } as any,
-            // deno-lint-ignore no-explicit-any
-          { group: "@molt/lib", } as any, ],
+          { group: "@molt/cli" } as any,
+          // deno-lint-ignore no-explicit-any
+          { group: "@molt/lib" } as any,
+        ],
         options: {},
       },
       { prefix: "" },
@@ -69,11 +70,11 @@ Deno.test("fromCommitSequence - many commits", () => {
           // deno-lint-ignore no-explicit-any
           { group: "@molt/core" } as any,
           // deno-lint-ignore no-explicit-any
-          { group: "@molt/cli", } as any,
-            // deno-lint-ignore no-explicit-any
-          { group: "@molt/lib", } as any,
-            // deno-lint-ignore no-explicit-any
-          { group: "@molt/integration", } as any,
+          { group: "@molt/cli" } as any,
+          // deno-lint-ignore no-explicit-any
+          { group: "@molt/lib" } as any,
+          // deno-lint-ignore no-explicit-any
+          { group: "@molt/integration" } as any,
         ],
         options: {},
       },
