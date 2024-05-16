@@ -1,6 +1,6 @@
 import { collect } from "@molt/core";
 import { assertEquals } from "@std/assert";
-import dedent from "npm:dedent";
+import dedent from "dedent";
 import { _changelog, _header, _version } from "./report.ts";
 import createReport from "./report.ts";
 

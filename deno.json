@@ -10,15 +10,15 @@
       "deno.json",
       "deno.lock",
       "README.md",
-      "LICENSE",
+      "LICENSE"
     ],
     "exclude": [
-      "**/*_test.ts",
+      "**/*_test.ts"
     ]
   },
   "tasks": {
     "act": "act -j integration",
-    "cache": "deno cache main.ts",
+    "cache": "deno cache main.ts exe/*.ts",
     "lock": "deno task cache --lock-write",
     "run": "deno run --no-prompt --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=deno,git main.ts",
     "test": "deno test --unstable-kv --env --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno"
@@ -27,6 +27,7 @@
     "@actions/core": "npm:@actions/core@^1.10.1",
     "@actions/github": "npm:@actions/github@^6.0.0",
     "@core/match": "jsr:@core/match@^0.3.1",
+    "@core/unknownutil": "jsr:@core/unknownutil@^3.18.1",
     "@molt/core": "jsr:@molt/core@^0.18.4",
     "@molt/integration": "jsr:@molt/integration@^0.18.0",
     "@molt/lib": "jsr:@molt/lib@^0.18.0",
@@ -36,6 +37,7 @@
     "@std/jsonc": "jsr:@std/jsonc@^0.224.0",
     "@std/path": "jsr:@std/path@^0.224.0",
     "@std/testing": "jsr:@std/testing@^0.224.0",
+    "@std/yaml": "jsr:@std/yaml@^0.224.0",
     "dedent": "npm:dedent@^1.5.3"
   }
 }
