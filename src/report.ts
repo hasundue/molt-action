@@ -1,11 +1,11 @@
 import actions from "@actions/core";
-import {
+import type {
   CollectResult,
   Dependency,
   DependencyUpdate,
-  stringify,
   UpdatedDependency,
 } from "@molt/core";
+import { stringify } from "@molt/core";
 import {
   compareCommits,
   fromDependency,
@@ -13,14 +13,14 @@ import {
   resolvePackageRoot,
   resolveRepository,
 } from "@molt/integration";
-import { ChangeLogRecord, curateChangeLog } from "@molt/lib/changelog";
+import { type ChangeLogRecord, curateChangeLog } from "@molt/lib/changelog";
 import { mapKeys, mapNotNullish, minWith } from "@std/collections";
 import dedent from "npm:dedent";
 
 /**
  * Generate a detailed report of changes in Markdown format.
  */
-export default async function createReport(
+export async function createReport(
   result: CollectResult,
 ): Promise<string> {
   /** A map of names of dependencies to a list of updates */
@@ -40,7 +40,7 @@ export default async function createReport(
       try {
         const changelog = await _changelog(from, to);
         if (changelog) {
-          content += changelog;
+          content += "\n\n" + changelog;
         }
       } catch (error) {
         actions.warning(`Failed to generate changelog: ` + Deno.inspect(error));
@@ -59,7 +59,7 @@ export function _header(
   if (froms.length > 0) {
     header += froms.join(", ") + " → ";
   }
-  return header += _version(to) + "\n\n";
+  return header += _version(to);
 }
 
 export function _version(dependency: Dependency): string {

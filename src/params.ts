@@ -1,8 +1,7 @@
 import { walk } from "@std/fs";
 import { parse } from "@std/jsonc";
 import { dirname } from "@std/path";
-
-import { ActionInputs } from "./inputs.ts";
+import type { ActionInputs } from "./inputs.ts";
 
 export type ActionParams = Required<ActionInputs>;
 

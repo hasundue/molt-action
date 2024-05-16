@@ -29,15 +29,15 @@ jobs:
       - uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.updated }}
-          expected: '["@molt/cli","@molt/core"]'
+          expected: '["@actions/core","@molt/core","deno.land/x/hono"]'
 
       - uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.summary }}
-          expected: 'chore: update @molt/cli and @molt/core'
+          expected: 'chore: update dependencies'
 
       - uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.report }}
-          expected: '### :package: @molt/cli [0.18.0](https://jsr.io/@molt/cli/0.18.0) → [0.18.4](https://jsr.io/@molt/cli/0.18.4)'
+          expected: '### :package: @actions/core [1.10.0](https://www.npm.js/package/@actions/core/v/1.10.0) → '
           comparison: startsWith

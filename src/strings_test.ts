@@ -1,7 +1,7 @@
 import { assertObjectMatch, assertThrows } from "@std/assert";
 import { parseGitUser } from "./strings.ts";
 
-Deno.test("parseGitUser - valid committer", () => {
+Deno.test("parseGitUser - valid format", () => {
   assertObjectMatch(
     parseGitUser(
       "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
@@ -13,7 +13,7 @@ Deno.test("parseGitUser - valid committer", () => {
   );
 });
 
-Deno.test("parseComitter - invalid committers", () => {
+Deno.test("parseGitUser - invalid formats", () => {
   [
     "invalid",
     "invalid <>",

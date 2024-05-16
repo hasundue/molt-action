@@ -2,16 +2,17 @@ import actions from "@actions/core";
 import * as github from "@actions/github";
 import { collect, createCommitSequence, execute } from "@molt/core";
 import { join } from "@std/path";
-import { ActionInputs, getInputs } from "./src/inputs.ts";
+import { getInputs } from "./src/inputs.ts";
 import { fromInputs } from "./src/params.ts";
 import { parseGitUser } from "./src/strings.ts";
-import createSummary from "./src/summary.ts";
-import createReport from "./src/report.ts";
+import { createSummary } from "./src/summary.ts";
+import { createReport } from "./src/report.ts";
 
-export default async function main(
-  inputs: ActionInputs,
-) {
+export default async function main() {
   actions.debug(JSON.stringify(github.context));
+
+  const inputs = getInputs();
+  actions.debug(JSON.stringify(inputs));
 
   const params = await fromInputs(inputs);
   actions.debug(JSON.stringify(params));
@@ -52,7 +53,7 @@ export default async function main(
 
 if (import.meta.main) {
   try {
-    await main(getInputs());
+    await main();
   } catch (error) {
     actions.setFailed(error.message);
   }

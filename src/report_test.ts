@@ -2,7 +2,7 @@ import { collect } from "@molt/core";
 import { assertEquals } from "@std/assert";
 import dedent from "dedent";
 import { _changelog, _header, _version } from "./report.ts";
-import createReport from "./report.ts";
+import { createReport } from "./report.ts";
 
 Deno.test("_version - jsr", () => {
   assertEquals(
@@ -51,7 +51,7 @@ Deno.test("_header - without from", () => {
         path: "",
       },
     ),
-    "### :package: @molt/core [1.0.0](https://jsr.io/@molt/core/1.0.0)\n\n",
+    "### :package: @molt/core [1.0.0](https://jsr.io/@molt/core/1.0.0)",
   );
 });
 
@@ -73,7 +73,7 @@ Deno.test("_header - with a single from", () => {
         path: "",
       },
     ),
-    "### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)\n\n",
+    "### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
   );
 });
 
@@ -101,7 +101,7 @@ Deno.test("_header - with multiple from", () => {
         path: "",
       },
     ),
-    "### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0), [0.19.0](https://jsr.io/@molt/core/0.19.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)\n\n",
+    "### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0), [0.19.0](https://jsr.io/@molt/core/0.19.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
   );
 });
 
@@ -171,18 +171,7 @@ Deno.test("createReport", async () => {
   assertEquals(
     actual,
     dedent`
-      ### :package: @molt/cli [0.18.0](https://jsr.io/@molt/cli/0.18.0) → [0.18.4](https://jsr.io/@molt/cli/0.18.4)
-
-      <details>
-
-      <summary>2 bug fixes</summary>
-
-      ### :bug: Bug Fixes:
-
-      - better error messages on unresolved deps
-      - bump @molt/core to 0.18.4
-
-      </details>
+      ### :package: @actions/core [1.10.0](https://www.npm.js/package/@actions/core/v/1.10.0) → [1.10.1](https://www.npm.js/package/@actions/core/v/1.10.1)
 
       ### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [0.18.4](https://jsr.io/@molt/core/0.18.4)
 
@@ -198,6 +187,8 @@ Deno.test("createReport", async () => {
       - handle identical dependencies correctly
 
       </details>
+
+      ### :package: deno.land/x/hono [4.2.9](https://deno.land/x/hono@4.2.9) → [v4.3.7](https://deno.land/x/hono@v4.3.7)
     `,
   );
 });

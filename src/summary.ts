@@ -1,6 +1,6 @@
-import { CommitSequence } from "@molt/core";
+import type { CommitSequence } from "@molt/core";
 
-export default function createSummary(
+export function createSummary(
   sequence: CommitSequence,
   options: { prefix: string },
 ): string {

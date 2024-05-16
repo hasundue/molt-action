@@ -18,8 +18,9 @@
   },
   "tasks": {
     "act": "act -j integration",
-    "cache": "deno cache main.ts exe/*.ts",
+    "cache": "deno cache main.ts bin/*.ts",
     "lock": "deno task cache --lock-write",
+    "pre-commit": "deno fmt && deno lint && deno task test && deno task lock",
     "run": "deno run --no-prompt --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=deno,git main.ts",
     "test": "deno test --unstable-kv --env --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno"
   },

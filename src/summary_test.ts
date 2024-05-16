@@ -1,16 +1,16 @@
 import { assertEquals } from "@std/assert";
-import summary from "./summary.ts";
+import { createSummary } from "./summary.ts";
 
 Deno.test("summary - empty sequence", () => {
   assertEquals(
-    summary({ commits: [], options: {} }, { prefix: "" }),
+    createSummary({ commits: [], options: {} }, { prefix: "" }),
     "All dependencies are up-to-date",
   );
 });
 
 Deno.test("summary - single commit", () => {
   assertEquals(
-    summary(
+    createSummary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
@@ -26,7 +26,7 @@ Deno.test("summary - single commit", () => {
 
 Deno.test("summary - two commits", () => {
   assertEquals(
-    summary(
+    createSummary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
@@ -44,7 +44,7 @@ Deno.test("summary - two commits", () => {
 
 Deno.test("summary - three commits", () => {
   assertEquals(
-    summary(
+    createSummary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
@@ -64,7 +64,7 @@ Deno.test("summary - three commits", () => {
 
 Deno.test("summary - many commits", () => {
   assertEquals(
-    summary(
+    createSummary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
