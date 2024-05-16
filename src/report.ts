@@ -20,7 +20,7 @@ import dedent from "npm:dedent";
 /**
  * Generate a detailed report of changes in Markdown format.
  */
-export async function createReport(
+export default async function createReport(
   result: CollectResult,
 ): Promise<string> {
   /** A map of names of dependencies to a list of updates */
@@ -31,21 +31,23 @@ export async function createReport(
     dependencies.set(u.to.name, list);
   }
   /** The report to be generated */
-  let report = "";
-  for (const [, updates] of dependencies) {
-    const from = mapNotNullish(updates, (it) => it.from);
-    const to = updates[0].to;
-    report += _header(from, to);
-    try {
-      const changelog = await _changelog(from, to);
-      if (changelog) {
-        report += changelog;
+  return (await Promise.all(
+    Array.from(dependencies.values()).map(async (updates) => {
+      let content = "";
+      const from = mapNotNullish(updates, (it) => it.from);
+      const to = updates[0].to;
+      content += _header(from, to);
+      try {
+        const changelog = await _changelog(from, to);
+        if (changelog) {
+          content += changelog;
+        }
+      } catch (error) {
+        actions.warning(`Failed to generate changelog: ` + Deno.inspect(error));
       }
-    } catch (error) {
-      actions.warning(`Failed to generate changelog: ` + Deno.inspect(error));
-    }
-  }
-  return report;
+      return content;
+    })
+  )).join("\n\n");
 }
 
 export function _header(

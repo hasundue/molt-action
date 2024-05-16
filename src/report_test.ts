@@ -1,7 +1,8 @@
 import { collect } from "@molt/core";
 import { assertEquals } from "@std/assert";
 import dedent from "npm:dedent";
-import { _changelog, _header, _version, createReport } from "./report.ts";
+import { _changelog, _header, _version } from "./report.ts";
+import createReport from "./report.ts";
 
 Deno.test("_version - jsr", () => {
   assertEquals(
@@ -181,7 +182,9 @@ Deno.test("createReport", async () => {
       - better error messages on unresolved deps
       - bump @molt/core to 0.18.4
 
-      </details>### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [0.18.4](https://jsr.io/@molt/core/0.18.4)
+      </details>
+
+      ### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [0.18.4](https://jsr.io/@molt/core/0.18.4)
 
       <details>
 

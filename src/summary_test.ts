@@ -1,16 +1,16 @@
 import { assertEquals } from "@std/assert";
-import { fromCommitSequence } from "./summary.ts";
+import summary from "./summary.ts";
 
-Deno.test("fromCommitSequence - empty sequence", () => {
+Deno.test("summary - empty sequence", () => {
   assertEquals(
-    fromCommitSequence({ commits: [], options: {} }, { prefix: "" }),
+    summary({ commits: [], options: {} }, { prefix: "" }),
     "All dependencies are up-to-date",
   );
 });
 
-Deno.test("fromCommitSequence - single commit", () => {
+Deno.test("summary - single commit", () => {
   assertEquals(
-    fromCommitSequence(
+    summary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
@@ -24,9 +24,9 @@ Deno.test("fromCommitSequence - single commit", () => {
   );
 });
 
-Deno.test("fromCommitSequence - two commits", () => {
+Deno.test("summary - two commits", () => {
   assertEquals(
-    fromCommitSequence(
+    summary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
@@ -42,9 +42,9 @@ Deno.test("fromCommitSequence - two commits", () => {
   );
 });
 
-Deno.test("fromCommitSequence - three commits", () => {
+Deno.test("summary - three commits", () => {
   assertEquals(
-    fromCommitSequence(
+    summary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any
@@ -62,9 +62,9 @@ Deno.test("fromCommitSequence - three commits", () => {
   );
 });
 
-Deno.test("fromCommitSequence - many commits", () => {
+Deno.test("summary - many commits", () => {
   assertEquals(
-    fromCommitSequence(
+    summary(
       {
         commits: [
           // deno-lint-ignore no-explicit-any

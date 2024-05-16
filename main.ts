@@ -4,8 +4,9 @@ import { collect, createCommitSequence, execute } from "@molt/core";
 import { join } from "@std/path";
 import { ActionInputs, getInputs } from "./src/inputs.ts";
 import { fromInputs } from "./src/params.ts";
-import * as summary from "./src/summary.ts";
 import { parseGitUser } from "./src/strings.ts";
+import createSummary from "./src/summary.ts";
+import createReport from "./src/report.ts";
 
 export default async function main(
   inputs: ActionInputs,
@@ -22,7 +23,7 @@ export default async function main(
 
   if (result.updates.length === 0) {
     actions.info("All dependencies are up-to-date.");
-    actions.setOutput("dependencies", []);
+    actions.setOutput("updated", "");
     return;
   }
 
@@ -32,8 +33,9 @@ export default async function main(
     groupBy: (update) => update.to.name,
   });
 
-  actions.setOutput("dependencies", commits.commits.map((it) => it.group));
-  actions.setOutput("summary", summary.fromCommitSequence(commits, params));
+  actions.setOutput("updated", commits.commits.map((it) => it.group));
+  actions.setOutput("summary", createSummary(commits, params));
+  actions.setOutput("report", await createReport(result));
 
   if (!params.commit) return;
 

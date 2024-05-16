@@ -45,17 +45,17 @@ inputs:
       available with imports, otherwise `**/*.ts`.
 
 outputs:
-  dependencies:
-    description: A JSON list of updated dependencies.
-    value: ${{ steps.main.outputs.dependencies }}
+  report:
+    description: A detailed report of the changes made in Markdown format.
+    value: ${{ steps.main.outputs.report }}
 
   summary:
     description: A summary of the changes made.
     value: ${{ steps.main.outputs.summary }}
 
-  report:
-    description: A detailed report of the changes made in Markdown format.
-    value: ${{ steps.main.outputs.report }}
+  updated:
+    description: A JSON list of updated dependencies, or an empty string.
+    value: ${{ steps.main.outputs.updated }}
 
 permissions:
   contents: read

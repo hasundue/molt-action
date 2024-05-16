@@ -11,11 +11,8 @@ defaults:
   runs-on: ubuntu-latest
 
 jobs:
-  action:
+  test:
     runs-on: ubuntu-latest
-
-    outputs:
-      dependencies: ${{ steps.action.outputs.dependencies }}
 
     steps:
       - uses: actions/checkout@v4
@@ -29,20 +26,42 @@ jobs:
 
       - uses: nick-fields/assert-action@v2
         with:
-          actual: ${{ steps.action.outputs.summary }}
-          expected: 'chore: bump @molt/core to '
-          comparison: startsWith
+          actual: ${{ steps.action.outputs.updated }}
+          expected: '["@molt/cli","@molt/core"]'
 
-  check:
-    needs: action
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        dependency: ${{ fromJSON(needs.action.outputs.dependencies) }}
-
-    steps:
       - uses: nick-fields/assert-action@v2
         with:
-          actual: ${{ matrix.dependency }}
-          expected: '@molt/core'
+          actual: ${{ steps.action.outputs.summary }}
+          expected: 'chore: update @molt/cli and @molt/core'
+
+      - uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.action.outputs.report }}
+          expected: |
+            ### @molt/cli [0.18.0](https://jsr.io/@molt/cli/0.18.0) → [0.18.4](https://jsr.io/@molt/cli/0.18.4)
+
+            <details>
+
+            <summary>2 bug fixes</summary>
+
+            ### :bug: Bug Fixes:
+
+            - better error messages on unresolved deps
+            - bump @molt/core to 0.18.4
+
+            </details>
+
+            ### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [0.18.4](https://jsr.io/@molt/core/0.18.4)
+
+            <details>
+
+            <summary>4 bug fixes</summary>
+
+            ### :bug: Bug Fixes:
+
+            - use `jsr:@deno/graph` for `x/deno_graph`
+            - do not throw on unresolved deps (#166)
+            - resolve mapped jsr imports with subpath
+            - handle identical dependencies correctly
+
+            </details>
