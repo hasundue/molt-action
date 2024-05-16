@@ -12,6 +12,14 @@ inputs:
       Author of the pull request in the format of `Display Name <email@adress.com>`.
     default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
 
+  base:
+    description: Base branch for the pull request.
+    default: ${{ github.ref }}
+
+  branch:
+    description: Head branch for the pull request.
+    default: molt-action
+
   commit:
     description: Whether to commit changes locally.
     default: true
@@ -24,6 +32,15 @@ inputs:
     description: >
       Name of the committer in the format of `Display Name <email@address.com>`
     default: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+
+  draft:
+    description: Whether to create a draft pull request.
+    default: false
+
+  labels:
+    description: >
+      Comma or newline-separated list of labels to add to the pull request.
+    default: 'dependencies'
 
   pull-request:
     description: Whether to create a pull request.
@@ -38,6 +55,10 @@ inputs:
       Root directory of the relevant source files. Defaults to the shallowest
       directory containing `deno.json` or `deno.jsonc` if available, otherwise
       the repository root.
+
+  script:
+    description: Specifier of the main script.
+    default: jsr:@molt/action@^1.0.0
 
   source:
     description: >
@@ -58,7 +79,7 @@ outputs:
     value: ${{ steps.main.outputs.updated }}
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 defaults:
@@ -86,16 +107,22 @@ runs:
         restore-keys: |
           molt-action-${{ runner.arch }}-${{ runner.os }}
 
-    - name: Cache dependencies
-      run: deno task cache
-
     - id: main
       name: Run main script
-      run: deno task run
+      run: >
+        deno run --allow-env --allow-net --allow-read --allow-run=deno,git --allow-write
+        --no-prompt --unstable-kv ${{ inputs.script }} 
 
     - name: Create a pull request
       uses: peter-evans/create-pull-request@v6
       if: inputs.pull-request == 'true'
       with:
         author: ${{ inputs.author }}
+        base: ${{ inputs.base }}
+        body: ${{ steps.main.outputs.report }}
+        branch: ${{ inputs.branch }}
         commiter: ${{ inputs.committer }}
+        delete-branch: true
+        draft: ${{ inputs.draft }}
+        labels: ${{ inputs.labels }}
+        title: ${{ steps.main.outputs.summary }}

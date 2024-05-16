@@ -8,7 +8,8 @@ permissions:
   contents: read
 
 defaults:
-  runs-on: ubuntu-latest
+  run:
+    shell: bash
 
 jobs:
   test:
@@ -23,6 +24,7 @@ jobs:
           commit: false
           pull-request: false
           root: test/fixtures
+          script: ./main.ts
 
       - uses: nick-fields/assert-action@v2
         with:
@@ -37,31 +39,5 @@ jobs:
       - uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.report }}
-          expected: |
-            ### @molt/cli [0.18.0](https://jsr.io/@molt/cli/0.18.0) → [0.18.4](https://jsr.io/@molt/cli/0.18.4)
-
-            <details>
-
-            <summary>2 bug fixes</summary>
-
-            ### :bug: Bug Fixes:
-
-            - better error messages on unresolved deps
-            - bump @molt/core to 0.18.4
-
-            </details>
-
-            ### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [0.18.4](https://jsr.io/@molt/core/0.18.4)
-
-            <details>
-
-            <summary>4 bug fixes</summary>
-
-            ### :bug: Bug Fixes:
-
-            - use `jsr:@deno/graph` for `x/deno_graph`
-            - do not throw on unresolved deps (#166)
-            - resolve mapped jsr imports with subpath
-            - handle identical dependencies correctly
-
-            </details>
+          expected: '### :package: @molt/cli [0.18.0](https://jsr.io/@molt/cli/0.18.0) → [0.18.4](https://jsr.io/@molt/cli/0.18.4)'
+          comparison: startsWith

@@ -46,7 +46,7 @@ export default async function createReport(
         actions.warning(`Failed to generate changelog: ` + Deno.inspect(error));
       }
       return content;
-    })
+    }),
   )).join("\n\n");
 }
 
