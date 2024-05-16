@@ -11,7 +11,7 @@ A GitHub Action to update dependencies in Deno projects with
 ```yaml
 - uses: actions/checkout@v4
 
-- uses: hasundue/molt-action@v1
+- uses: hasundue/molt-action@v1.0.0-rc.1
   with:
     # optional inputs
 ```
@@ -36,6 +36,5 @@ and passed through to it.
 | `pull-request`    | Whether to create a pull request.                                                                                        | `true`                                                                                                      |
 | `resolve-imports` | Resolve local imports to find dependencies recursively.                                                                  | `false`                                                                                                     |
 | `root`            | Root directory of the relevant source files.                                                                             | The shallowest directory containing `deno.json` or `deno.jsonc` if available, otherwise the repository root |
-| `script`          | Specifier of the main script.                                                                                            | `jsr:@molt/action@1.0.0-rc.1`                                                                               |
 | `source`          | Glob patterns to match source files.                                                                                     | `deno.json{,c}` if available with imports, otherwise `**/*.ts`                                              |
 | `token`           | GitHub token with permissions `contents: write` and `pull-requests: write` or a repo scoped personal access token (PAT). | `${{ secrets.GITHUB_TOKEN }}`                                                                               |
