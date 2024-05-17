@@ -24,7 +24,5 @@ jobs:
         with:
           branch: molt-action/example
           draft: true
-          labels: |
-            dependencies
-            example
+          labels: dependencies example
           root: test/fixtures
