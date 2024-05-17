@@ -125,7 +125,6 @@ runs:
         base: ${{ inputs.base }}
         body: ${{ steps.main.outputs.report }}
         branch: ${{ inputs.branch }}
-        commiter: ${{ inputs.committer }}
         delete-branch: true
         draft: ${{ inputs.draft }}
         labels: ${{ inputs.labels }}
