@@ -1,0 +1,30 @@
+name: example
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run molt-action
+        uses: ./
+        with:
+          branch: molt-action/example
+          draft: true
+          labels: |
+            dependencies
+            example
+          root: test/fixtures
