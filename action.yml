@@ -14,8 +14,9 @@ inputs:
     default: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
 
   base:
-    description: Base branch for the pull request.
-    default: ${{ github.ref }}
+    description: >
+      Base branch to create the pull request against. Defaults to the branch
+      checked out in the workflow.
 
   branch:
     description: Head branch for the pull request.
