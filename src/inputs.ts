@@ -18,6 +18,9 @@ export interface ActionInputs {
 
   /** @default [] */
   source: string[];
+
+  /** @default false */
+  write: boolean;
 }
 
 export const defaults: ActionInputs = {
@@ -28,6 +31,7 @@ export const defaults: ActionInputs = {
   resolve: false,
   root: "",
   source: [],
+  write: false,
 };
 
 export function getInputs(): ActionInputs {
@@ -38,5 +42,6 @@ export function getInputs(): ActionInputs {
     resolve: actions.getBooleanInput("resolve-imports"),
     root: actions.getInput("root"),
     source: actions.getMultilineInput("source"),
+    write: actions.getBooleanInput("write"),
   };
 }
