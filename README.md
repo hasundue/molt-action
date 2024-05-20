@@ -4,12 +4,9 @@
 > Not released yet. You may try the `v1-rc` tag, but it is not guaranteed to
 > work.
 
-A GitHub Action to update dependencies in Deno projects with
-[molt](https://github.com/hasundue/molt).
-
-## Example
-
-![image](https://github.com/hasundue/molt-action/assets/309723/92246a9c-c86a-4dee-bef8-468ae8ac448d)
+A GitHub Action to create a pull request to update dependencies in a Deno
+project with [molt](https://github.com/hasundue/molt). See
+[Pull requests](https://github.com/hasundue/molt-action/pulls) for an example.
 
 ## Usage
 
