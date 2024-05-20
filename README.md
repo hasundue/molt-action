@@ -44,3 +44,11 @@ and passed through to it.
 | `source`          | Glob patterns to match source files.                                                                                     | `deno.json{,c}` if available with imports, otherwise `**/*.ts`                                              |
 | `token`           | GitHub token with permissions `contents: write` and `pull-requests: write` or a repo scoped personal access token (PAT). | `${{ secrets.GITHUB_TOKEN }}`                                                                               |
 | `write`           | Whether to write changes to disk. Forced to `true` if `commit` or `pull-request` is `true`.                              | `true`                                                                                                      |
+
+### Outputs
+
+| Name      | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `report`  | A summary of the changes made.                           |
+| `summary` | A summary of the changes made in markdown format.        |
+| `updated` | A JSON list of updated dependencies, or an empty string. |
