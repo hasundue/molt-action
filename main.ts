@@ -1,6 +1,6 @@
 import actions from "@actions/core";
 import * as github from "@actions/github";
-import { collect, createCommitSequence, execute } from "@molt/core";
+import { collect, createCommitSequence, execute, write } from "@molt/core";
 import { expandGlob } from "@std/fs";
 import { getInputs } from "./src/inputs.ts";
 import { fromInputs } from "./src/params.ts";
@@ -45,17 +45,21 @@ async function main() {
   actions.setOutput("summary", createSummary(commits, params));
   actions.setOutput("report", await createReport(result));
 
-  if (!params.commit) return;
+  if (params.commit) {
+    const { name, email } = parseGitUser(params.committer);
+    await new Deno.Command("git", {
+      args: ["config", "--global", "user.name", name],
+    }).output();
+    await new Deno.Command("git", {
+      args: ["config", "--global", "user.email", email],
+    }).output();
 
-  const { name, email } = parseGitUser(params.committer);
-  await new Deno.Command("git", {
-    args: ["config", "--global", "user.name", name],
-  }).output();
-  await new Deno.Command("git", {
-    args: ["config", "--global", "user.email", email],
-  }).output();
+    return execute(commits);
+  }
 
-  await execute(commits);
+  if (params.write) {
+    return write(result);
+  }
 }
 
 if (import.meta.main) {

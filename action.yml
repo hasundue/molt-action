@@ -78,6 +78,11 @@ inputs:
       or a repo scoped personal access token (PAT).
     default: ${{ github.token }}
 
+  write:
+    description: >
+      Whether to write changes to disk. Forced to `true` if `commit` or `pull-request` is `true`.
+    default: true
+
 outputs:
   report:
     description: A detailed report of the changes made in Markdown format.
@@ -127,6 +132,7 @@ runs:
         INPUT_RESOLVE-IMPORTS: ${{ inputs.resolve-imports }}
         INPUT_ROOT: ${{ inputs.root }}
         INPUT_SOURCE: ${{ inputs.source }}
+        INPUT_WRITE: ${{ inputs.pr || inputs.write }}
 
 
     - name: Create a pull request
