@@ -8,7 +8,10 @@ export interface ActionInputs {
   committer: string;
 
   /** @default "" */
-  lock: string;
+  config: boolean | string;
+
+  /** @default "" */
+  lock: boolean | string;
 
   /** @default "chore:" */
   prefix: string;
@@ -19,7 +22,7 @@ export interface ActionInputs {
   /** @default "" */
   root: string;
 
-  /** @default [] */
+  /** @default [`./**\/*.ts`] */
   source: string[];
 
   /** @default false */
@@ -30,19 +33,29 @@ export const defaults: ActionInputs = {
   commit: true,
   committer:
     "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
+  config: "",
   lock: "",
   prefix: "chore:",
   resolve: false,
   root: "",
-  source: [],
+  source: ["./**/*.ts"],
   write: false,
 };
+
+function getMaybeBooleanInput(name: string): boolean | string {
+  try {
+    return actions.getBooleanInput(name);
+  } catch {
+    return actions.getInput(name);
+  }
+}
 
 export function getInputs(): ActionInputs {
   return {
     commit: actions.getBooleanInput("commit"),
     committer: actions.getInput("committer"),
-    lock: actions.getInput("lock"),
+    config: getMaybeBooleanInput("config"),
+    lock: getMaybeBooleanInput("lock"),
     prefix: actions.getInput("commit-prefix"),
     resolve: actions.getBooleanInput("resolve-imports"),
     root: actions.getInput("root"),
