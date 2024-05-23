@@ -7,6 +7,9 @@ export interface ActionInputs {
   /** @default "github-actions[bot]" <41898282+github-actions[bot]@users.noreply.github.com> */
   committer: string;
 
+  /** @default "" */
+  lock: string;
+
   /** @default "chore:" */
   prefix: string;
 
@@ -27,6 +30,7 @@ export const defaults: ActionInputs = {
   commit: true,
   committer:
     "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>",
+  lock: "",
   prefix: "chore:",
   resolve: false,
   root: "",
@@ -38,6 +42,7 @@ export function getInputs(): ActionInputs {
   return {
     commit: actions.getBooleanInput("commit"),
     committer: actions.getInput("committer"),
+    lock: actions.getInput("lock"),
     prefix: actions.getInput("commit-prefix"),
     resolve: actions.getBooleanInput("resolve-imports"),
     root: actions.getInput("root"),

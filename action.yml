@@ -48,6 +48,11 @@ inputs:
       Comma or newline-separated list of labels to add to the pull request.
     default: 'dependencies'
 
+  lock:
+    description: >
+      Relative path to the lock file to update from the root directory.
+      Defaults to `deno.lock` if available, otherwise null.
+
   pull-request:
     description: Whether to create a pull request.
     default: true

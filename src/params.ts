@@ -1,46 +1,57 @@
-import { walk } from "@std/fs";
+import { exists, walk } from "@std/fs";
 import { parse } from "@std/jsonc";
 import { dirname } from "@std/path";
 import type { ActionInputs } from "./inputs.ts";
 
-export type ActionParams = Required<ActionInputs>;
+export type ActionParams = Omit<ActionInputs, "lock"> & {
+  lock?: string;
+};
 
 export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
-  const { config, root } = inputs.root.length
+  const { config, lock, root } = inputs.root.length
     ? {
-      config: await findConfig(inputs.root),
+      lock: inputs.lock || undefined,
+      ...await findConfigLock(inputs.root),
       root: inputs.root,
     }
-    : await findRootAndConfig();
+    : await findRootConfigLock();
 
   const source = inputs.source.length ? inputs.source : [
     config && await hasImports(config) ? config : "./**/*.ts",
   ];
   const prefix = inputs.prefix.length ? `${inputs.prefix} ` : "";
-  return { ...inputs, root, source, prefix };
+  return { ...inputs, lock, root, source, prefix };
 }
 
-async function findConfig(root: string): Promise<string | undefined> {
+async function findConfigLock(root: string): Promise<
+  { config?: string; lock?: string }
+> {
   for await (const entry of walk(root, { maxDepth: 1 })) {
     if (entry.name === "deno.json" || entry.name === "deno.jsonc") {
-      return entry.name;
+      return await exists(entry.path.replace(/\.jsonc?$/, ".lock"))
+        ? { config: entry.name, lock: "deno.lock" }
+        : { config: entry.name };
     }
   }
-  return undefined;
+  return {};
 }
 
-async function findRootAndConfig(): Promise<
-  { config: string | undefined; root: string }
+async function findRootConfigLock(): Promise<
+  { config?: string; lock?: string; root: string }
 > {
   let root = ".";
   let config = undefined;
+  let lock = undefined;
   for await (const entry of walk(".")) {
     if (entry.name === "deno.json" || entry.name === "deno.jsonc") {
       root = dirname(entry.path);
       config = entry.name;
+      if (await exists(entry.path.replace(/\.jsonc?$/, ".lock"))) {
+        lock = "deno.lock";
+      }
     }
   }
-  return { config, root };
+  return { config, lock, root };
 }
 
 async function hasImports(config?: string): Promise<boolean> {
