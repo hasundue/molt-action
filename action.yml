@@ -39,6 +39,12 @@ inputs:
       Name of the committer in the format of `Display Name <email@address.com>`
     default: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
 
+  config:
+    description: >
+      Relative path to the configuration file including imports from the root
+      directory. Ignored if `root` is not given. Set to `false` to disable auto
+      discovery. Defaults to `deno.json` or `deno.jsonc` if available.
+
   draft:
     description: Whether to create a draft pull request.
     default: false
@@ -51,7 +57,8 @@ inputs:
   lock:
     description: >
       Relative path to the lock file to update from the root directory.
-      Defaults to `deno.lock` if available, otherwise null.
+      Ignored if `root` is not given. Set to `false` to disable auto discovery.
+      Defaults to `deno.lock` if available. 
 
   pull-request:
     description: Whether to create a pull request.
@@ -74,8 +81,10 @@ inputs:
 
   source:
     description: >
-      Glob patterns to match source files. Defaults to `deno.json{,c}` if
-      available with imports, otherwise `**/*.ts`.
+      Glob patterns to match source files to update dependencies in. If a Deno
+      configuration file with imports is specified or found, this is only used
+      to update the lock file.
+    default: '**/*.ts'
 
   token:
     description: >
@@ -89,6 +98,14 @@ inputs:
     default: true
 
 outputs:
+  dependencies:
+    description: A JSON list of updated dependencies, or an empty string.
+    value: ${{ steps.main.outputs.updated }}
+
+  files:
+    description: A JSON list of updated files, or an empty string.
+    value: ${{ steps.main.outputs.files }}
+
   report:
     description: A detailed report of the changes made in Markdown format.
     value: ${{ steps.main.outputs.report }}
@@ -96,10 +113,6 @@ outputs:
   summary:
     description: A summary of the changes made.
     value: ${{ steps.main.outputs.summary }}
-
-  updated:
-    description: A JSON list of updated dependencies, or an empty string.
-    value: ${{ steps.main.outputs.updated }}
 
 permissions:
   contents: write
@@ -134,6 +147,8 @@ runs:
         INPUT_COMMIT: ${{ inputs.commit }}
         INPUT_COMMITTER: ${{ inputs.committer }}
         INPUT_COMMIT-PREFIX: ${{ inputs.commit-prefix }}
+        INPUT_CONFIG: ${{ inputs.config }}
+        INPUT_LOCK: ${{ inputs.lock }}
         INPUT_RESOLVE-IMPORTS: ${{ inputs.resolve-imports }}
         INPUT_ROOT: ${{ inputs.root }}
         INPUT_SOURCE: ${{ inputs.source }}

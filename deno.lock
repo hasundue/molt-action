@@ -10,9 +10,10 @@
       "jsr:@deno/graph@^0.73.1": "jsr:@deno/graph@0.73.1",
       "jsr:@lambdalisue/async@^2.1.1": "jsr:@lambdalisue/async@2.1.1",
       "jsr:@molt/core@0.18.0": "jsr:@molt/core@0.18.0",
-      "jsr:@molt/core@^0.18.4": "jsr:@molt/core@0.18.4",
+      "jsr:@molt/core@^0.18.5": "jsr:@molt/core@0.18.5",
       "jsr:@molt/integration@^0.18.0": "jsr:@molt/integration@0.18.0",
-      "jsr:@molt/lib@^0.18.0": "jsr:@molt/lib@0.18.0",
+      "jsr:@molt/lib@^0.18.0": "jsr:@molt/lib@0.18.5",
+      "jsr:@molt/lib@^0.18.5": "jsr:@molt/lib@0.18.5",
       "jsr:@std/assert@0.224.0": "jsr:@std/assert@0.224.0",
       "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
       "jsr:@std/assert@^0.224.0": "jsr:@std/assert@0.224.0",
@@ -69,8 +70,8 @@
       "@molt/core@0.18.0": {
         "integrity": "1476bda0c71b70a600ef237619ef33f53868d14196b417e50148061e9308ec59"
       },
-      "@molt/core@0.18.4": {
-        "integrity": "54935625bce7c712ec012e00d56eeb1e9e3f393e615cfc8d3c28c0684093282f",
+      "@molt/core@0.18.5": {
+        "integrity": "42bc81de1af0ffd728626bfd99350c0f01ddec53988a8d069561009953a55823",
         "dependencies": [
           "jsr:@core/unknownutil@^3.18.0",
           "jsr:@deno/graph@^0.73.1",
@@ -95,8 +96,8 @@
           "npm:@octokit/rest@^20.1.0"
         ]
       },
-      "@molt/lib@0.18.0": {
-        "integrity": "c5b10f134f8ba68f6f6a389ad08fedca705a12d3d1d12ec2b45b06cf67b9b9e1",
+      "@molt/lib@0.18.5": {
+        "integrity": "dfbcf01f9c57f57d0fc2581ec8ac087f933f17da106feaaf60feced2e8cc6eab",
         "dependencies": [
           "jsr:@std/collections@^0.222.1",
           "npm:@conventional-commits/parser@^0.4.1"
@@ -392,9 +393,9 @@
     "dependencies": [
       "jsr:@core/match@^0.3.1",
       "jsr:@core/unknownutil@^3.18.1",
-      "jsr:@molt/core@^0.18.4",
+      "jsr:@molt/core@^0.18.5",
       "jsr:@molt/integration@^0.18.0",
-      "jsr:@molt/lib@^0.18.0",
+      "jsr:@molt/lib@^0.18.5",
       "jsr:@std/assert@^0.224.0",
       "jsr:@std/collections@^0.224.1",
       "jsr:@std/fs@^0.224.0",

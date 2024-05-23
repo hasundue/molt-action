@@ -24,16 +24,21 @@ jobs:
         uses: ./
         with:
           cache-key-suffix: ${{ hashFiles('deno.lock') }}
-          commit: false
           pull-request: false
-          script: 'main.ts'
           root: 'test/fixtures'
+          script: 'main.ts'
 
       - name: Check updated dependencies
         uses: nick-fields/assert-action@v2
         with:
-          actual: ${{ steps.action.outputs.updated }}
+          actual: ${{ steps.action.outputs.dependencies }}
           expected: '["@actions/core","@molt/core","deno.land/x/hono"]'
+
+      - name: Check updated files
+        uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.action.outputs.files }}
+          expected: '["deno.json","deno.lock"]'
 
       - name: Check summary
         uses: nick-fields/assert-action@v2
@@ -60,17 +65,22 @@ jobs:
         uses: ./
         with:
           cache-key-suffix: ${{ hashFiles('deno.lock') }}
-          commit: false
+          config: false
           pull-request: false
-          script: 'main.ts'
           root: 'test/fixtures'
-          source: '**/*.ts'
+          script: 'main.ts'
 
       - name: Check updated dependencies
         uses: nick-fields/assert-action@v2
         with:
-          actual: ${{ steps.action.outputs.updated }}
+          actual: ${{ steps.action.outputs.dependencies }}
           expected: '["@std/assert","@std/collections"]'
+
+      - name: Check updated files
+        uses: nick-fields/assert-action@v2
+        with:
+          actual: ${{ steps.action.outputs.files }}
+          expected: '["deno.lock","mod_test.ts","mod.ts"]'
 
       - name: Check summary
         uses: nick-fields/assert-action@v2
