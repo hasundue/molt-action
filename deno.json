@@ -1,6 +1,6 @@
 {
   "name": "@molt/action",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "exports": "./main.ts",
 
   "publish": {
