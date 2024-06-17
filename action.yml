@@ -24,7 +24,7 @@ inputs:
 
   cache-key-suffix:
     description: Suffix for the cache key (development purposes only).
-    default: 1.0.0-rc.2
+    default: 1.0.0-rc.3
 
   commit:
     description: Whether to commit changes locally.
