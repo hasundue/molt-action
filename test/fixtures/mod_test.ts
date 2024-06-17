@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert@0.224.0";
+import { assertEquals } from "jsr:@std/assert@0.226.0";
 import { fn } from "./mod.ts";
 
 Deno.test("fn", () => {
