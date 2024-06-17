@@ -26,4 +26,5 @@ jobs:
           config: false
           draft: true
           labels: example
+          lock: deno.lock
           root: test/fixtures
