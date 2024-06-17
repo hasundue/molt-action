@@ -157,7 +157,7 @@ runs:
 
     - name: Create a pull request
       uses: peter-evans/create-pull-request@v6
-      if: inputs.pull-request == 'true' && steps.main.outputs.updated != ''
+      if: inputs.pull-request == 'true' && steps.main.outputs.files != ''
       with:
         author: ${{ inputs.author }}
         base: ${{ inputs.base }}
