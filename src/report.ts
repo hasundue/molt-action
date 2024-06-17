@@ -14,7 +14,7 @@ import {
   resolveRepository,
 } from "@molt/integration";
 import { curateChangeLog } from "@molt/lib/changelog";
-import { mapNotNullish, minWith } from "@std/collections";
+import { distinct, mapNotNullish, minWith } from "@std/collections";
 
 /**
  * Generate a detailed report of changes in Markdown format.
@@ -54,7 +54,7 @@ export function _header(
   to: UpdatedDependency,
 ): string {
   let header = `#### :package: ${to.name} `;
-  const froms = from.map((it) => _version(it));
+  const froms = distinct(from.map((it) => _version(it)));
   if (froms.length > 0) {
     header += froms.join(", ") + " → ";
   }
