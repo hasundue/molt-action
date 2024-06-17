@@ -53,7 +53,7 @@ async function main() {
   });
 
   if (result.updates.length === 0) {
-    for (const output of ["updated", "summary", "report"]) {
+    for (const output of ["dependencies", "file", "summary", "report"]) {
       actions.setOutput(output, "");
     }
     actions.info("All dependencies are up-to-date.");

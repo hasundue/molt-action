@@ -100,7 +100,7 @@ inputs:
 outputs:
   dependencies:
     description: A JSON list of updated dependencies, or an empty string.
-    value: ${{ steps.main.outputs.updated }}
+    value: ${{ steps.main.outputs.dependencies }}
 
   files:
     description: A JSON list of updated files, or an empty string.
