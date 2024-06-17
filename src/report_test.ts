@@ -77,7 +77,7 @@ Deno.test("_header - with a single from", () => {
   );
 });
 
-Deno.test("_header - with multiple from", () => {
+Deno.test("_header - with multiple froms", () => {
   assertEquals(
     _header(
       [
@@ -102,6 +102,34 @@ Deno.test("_header - with multiple from", () => {
       },
     ),
     "#### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0), [0.19.0](https://jsr.io/@molt/core/0.19.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
+  );
+});
+
+Deno.test("_header - with duplicated froms", () => {
+  assertEquals(
+    _header(
+      [
+        {
+          protocol: "jsr:",
+          name: "@molt/core",
+          version: "0.18.0",
+          path: "",
+        },
+        {
+          protocol: "jsr:",
+          name: "@molt/core",
+          version: "0.18.0",
+          path: "",
+        },
+      ],
+      {
+        protocol: "jsr:",
+        name: "@molt/core",
+        version: "1.0.0",
+        path: "",
+      },
+    ),
+    "#### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
   );
 });
 
@@ -164,8 +192,9 @@ Deno.test("createReport", async () => {
 
   assert(lines[0].startsWith("#### :package: @actions/core"));
   assert(lines[2].startsWith("#### :package: @molt/core"));
-  for (let i = 4; i < 8; i++) {
+  assert(lines[4].startsWith("- feat: "));
+  for (let i = 5; i <= 10; i++) {
     assert(lines[i].startsWith("- fix: "));
   }
-  assert(lines[9].startsWith("#### :package: deno.land/x/hono"));
+  assert(lines[12].startsWith("#### :package: deno.land/x/hono"));
 });
