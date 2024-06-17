@@ -23,6 +23,7 @@ jobs:
         uses: ./
         with:
           branch: molt-action/example
+          config: false
           draft: true
           labels: example
           root: test/fixtures
