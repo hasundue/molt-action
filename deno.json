@@ -37,6 +37,8 @@
     "act": "act -j integration",
     "check": "deno check **/*.ts",
     "pre-commit": "deno fmt && deno lint && deno task check && deno task test",
-    "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv"
+    "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv",
+    "update": "deno run --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=git,deno jsr:@molt/cli@0.19.0-rc.5",
+    "update:commit": "deno task -q update --commit --pre-commit=check,test --prefix 'chore:'"
   }
 }
