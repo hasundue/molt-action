@@ -1,19 +1,24 @@
-import type { CommitSequence } from "@molt/core";
+import type * as Molt from "@molt/core/types";
+
+interface Update {
+  dep: Pick<Molt.Dependency, "name">;
+  message: Molt.Update["message"];
+}
 
 export function createSummary(
-  sequence: CommitSequence,
+  updates: Update[],
   options: { prefix: string },
 ): string {
-  if (sequence.commits.length === 0) {
+  if (updates.length === 0) {
     return "All dependencies are up-to-date";
   }
-  if (sequence.commits.length === 1) {
-    return sequence.commits[0].message;
+  if (updates.length === 1) {
+    return updates[0].message(options.prefix);
   }
-  const groups = new Intl.ListFormat("en", {
+  const deps = new Intl.ListFormat("en", {
     style: "long",
     type: "conjunction",
-  }).format(sequence.commits.map((commit) => commit.group));
-  const full = options.prefix + `update ${groups}`;
+  }).format(updates.map((it) => it.dep.name));
+  const full = options.prefix + `update ${deps}`;
   return (full.length <= 50) ? full : options.prefix + "update dependencies";
 }

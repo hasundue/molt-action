@@ -80,7 +80,7 @@ jobs:
         uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.files }}
-          expected: '["deno.lock","mod_test.ts","mod.ts"]'
+          expected: '["deno.lock","mod.ts","mod_test.ts"]'
 
       - name: Check summary
         uses: nick-fields/assert-action@v2
