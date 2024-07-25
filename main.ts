@@ -72,12 +72,6 @@ async function main() {
   actions.setOutput("report", await createReport(updates));
   actions.setOutput("summary", createSummary(updates, params));
 
-  if (params.write) {
-    for (const update of updates) {
-      await update.write();
-    }
-  }
-
   if (params.commit) {
     const { name, email } = parseGitUser(params.committer);
     await run("git", {
@@ -86,8 +80,15 @@ async function main() {
     await run("git", {
       args: ["config", "--global", "user.email", email],
     });
-    for (const update of updates) {
-      await update.commit();
+  }
+
+  for (const update of updates) {
+    if (params.write) {
+      await update.write();
+    }
+    if (params.commit) {
+      const message = update.message(params.prefix);
+      await update.commit(message);
     }
   }
 }
