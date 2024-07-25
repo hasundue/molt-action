@@ -10,13 +10,14 @@
       "jsr:@deno/graph@^0.78.1": "jsr:@deno/graph@0.78.1",
       "jsr:@lambdalisue/async@^2.1.1": "jsr:@lambdalisue/async@2.1.1",
       "jsr:@molt/core@0.18.0": "jsr:@molt/core@0.18.0",
-      "jsr:@molt/core@^0.19.0-rc.6": "jsr:@molt/core@0.19.0-rc.6",
+      "jsr:@molt/core@^0.19.0-rc.7": "jsr:@molt/core@0.19.0-rc.7",
       "jsr:@molt/integration@^0.18.0-rc.1": "jsr:@molt/integration@0.18.0",
       "jsr:@molt/lib@^0.18.0": "jsr:@molt/lib@0.18.5",
       "jsr:@molt/lib@^0.19.0-rc.1": "jsr:@molt/lib@0.19.0-rc.2",
       "jsr:@std/assert@0.224.0": "jsr:@std/assert@0.224.0",
       "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
       "jsr:@std/assert@^1.0.0": "jsr:@std/assert@1.0.0",
+      "jsr:@std/bytes@^0.222.1": "jsr:@std/bytes@0.222.1",
       "jsr:@std/collections@0.224.0": "jsr:@std/collections@0.224.0",
       "jsr:@std/collections@^0.222.1": "jsr:@std/collections@0.222.1",
       "jsr:@std/collections@^1.0.0": "jsr:@std/collections@1.0.5",
@@ -27,6 +28,7 @@
       "jsr:@std/fs@^0.229.0": "jsr:@std/fs@0.229.3",
       "jsr:@std/internal@^0.224.0": "jsr:@std/internal@0.224.0",
       "jsr:@std/internal@^1.0.1": "jsr:@std/internal@1.0.1",
+      "jsr:@std/io@^0.222.1": "jsr:@std/io@0.222.1",
       "jsr:@std/json@^0.222.1": "jsr:@std/json@0.222.1",
       "jsr:@std/json@^0.224.0": "jsr:@std/json@0.224.0",
       "jsr:@std/json@^1.0.0-rc.1": "jsr:@std/json@1.0.0-rc.3",
@@ -37,6 +39,7 @@
       "jsr:@std/path@^1.0.0": "jsr:@std/path@1.0.1",
       "jsr:@std/semver@^0.222.1": "jsr:@std/semver@0.222.1",
       "jsr:@std/semver@^0.224.3": "jsr:@std/semver@0.224.3",
+      "jsr:@std/streams@^0.222.1": "jsr:@std/streams@0.222.1",
       "jsr:@std/yaml@^0.224.0": "jsr:@std/yaml@0.224.3",
       "npm:@actions/core@^1.10.1": "npm:@actions/core@1.10.1",
       "npm:@actions/github@^6.0.0": "npm:@actions/github@6.0.0_@octokit+core@5.2.0",
@@ -86,8 +89,8 @@
           "jsr:@std/semver@^0.222.1"
         ]
       },
-      "@molt/core@0.19.0-rc.6": {
-        "integrity": "9c6f96143ddcc921ecd2f3049f47cd0da8b8992e5d765827e190de4dfc28b4fc",
+      "@molt/core@0.19.0-rc.7": {
+        "integrity": "c84b2cc1bad216e8f0aaf0f97790b048c21ed87e9740185d0999fb0b5cdec8d3",
         "dependencies": [
           "jsr:@core/unknownutil@^3.18.1",
           "jsr:@deno/graph@^0.78.1",
@@ -146,6 +149,9 @@
           "jsr:@std/internal@^1.0.1"
         ]
       },
+      "@std/bytes@0.222.1": {
+        "integrity": "04dbf33e889ed5f9f6a87bc6b6b882dc105fffae6d2b042f832d92d4f34771c0"
+      },
       "@std/collections@0.222.1": {
         "integrity": "234099e08eead6a87e59f4f1abdcba35df5503cfb0e852e77a19f79359ed5760"
       },
@@ -186,8 +192,18 @@
       "@std/internal@1.0.1": {
         "integrity": "6f8c7544d06a11dd256c8d6ba54b11ed870aac6c5aeafff499892662c57673e6"
       },
+      "@std/io@0.222.1": {
+        "integrity": "45c638370bccc0687d11e32481b276126201014516ffbe2f340700b8d81c015e",
+        "dependencies": [
+          "jsr:@std/assert@^0.222.1",
+          "jsr:@std/bytes@^0.222.1"
+        ]
+      },
       "@std/json@0.222.1": {
-        "integrity": "ce4fb420dfd818fc2569289217842a3e70f249279f038a5e266f7b6572a2829a"
+        "integrity": "ce4fb420dfd818fc2569289217842a3e70f249279f038a5e266f7b6572a2829a",
+        "dependencies": [
+          "jsr:@std/streams@^0.222.1"
+        ]
       },
       "@std/json@0.224.0": {
         "integrity": "b7d38d8a8729f9a4074d04a626084825a498db0d385cbc41ad29bce9f8ca01dc"
@@ -232,6 +248,14 @@
       },
       "@std/semver@0.224.3": {
         "integrity": "7bb34b5ad46de2c0c73de0ca3e30081ef64b4361f66abd57c84ff1011c6a1233"
+      },
+      "@std/streams@0.222.1": {
+        "integrity": "0bb4220c1dc5106e45a309179f76df95c786c9fff814d195d5ee2160931bfc7c",
+        "dependencies": [
+          "jsr:@std/assert@^0.222.1",
+          "jsr:@std/bytes@^0.222.1",
+          "jsr:@std/io@^0.222.1"
+        ]
       },
       "@std/yaml@0.224.3": {
         "integrity": "9da1ed0094f42ba24570b4d88a094b44a793ac7f2bc085c1939d3ac7e11cc0bb"
@@ -467,7 +491,7 @@
     "dependencies": [
       "jsr:@core/match@^0.3.1",
       "jsr:@core/unknownutil@^3.18.1",
-      "jsr:@molt/core@^0.19.0-rc.6",
+      "jsr:@molt/core@^0.19.0-rc.7",
       "jsr:@molt/integration@^0.18.0-rc.1",
       "jsr:@molt/lib@^0.19.0-rc.1",
       "jsr:@std/assert@^1.0.0",

@@ -18,7 +18,7 @@
     "@actions/github": "npm:@actions/github@^6.0.0",
     "@core/match": "jsr:@core/match@^0.3.1",
     "@core/unknownutil": "jsr:@core/unknownutil@^3.18.1",
-    "@molt/core": "jsr:@molt/core@^0.19.0-rc.6",
+    "@molt/core": "jsr:@molt/core@^0.19.0-rc.7",
     "@molt/integration": "jsr:@molt/integration@^0.18.0-rc.1",
     "@molt/lib": "jsr:@molt/lib@^0.19.0-rc.1",
     "@std/assert": "jsr:@std/assert@^1.0.0",
@@ -35,7 +35,7 @@
     "check": "deno check **/*.ts",
     "pre-commit": "deno fmt && deno lint && deno task check && deno task test",
     "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv",
-    "update": "deno run --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=git,deno jsr:@molt/cli@0.19.0-rc.5",
+    "update": "deno run --unstable-kv --allow-env --allow-read --allow-write --allow-net --allow-run=git,deno jsr:@molt/cli@0.19.0-rc.7",
     "update:commit": "deno task -q update --commit --pre-commit=check,test --prefix 'chore:'"
   }
 }
