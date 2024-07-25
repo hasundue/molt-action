@@ -16,7 +16,6 @@
       "jsr:@molt/lib@^0.19.0-rc.1": "jsr:@molt/lib@0.19.0-rc.2",
       "jsr:@std/assert@0.224.0": "jsr:@std/assert@0.224.0",
       "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
-      "jsr:@std/assert@^0.224.0": "jsr:@std/assert@0.224.0",
       "jsr:@std/assert@^1.0.0": "jsr:@std/assert@1.0.0",
       "jsr:@std/collections@0.224.0": "jsr:@std/collections@0.224.0",
       "jsr:@std/collections@^0.222.1": "jsr:@std/collections@0.222.1",
@@ -35,7 +34,7 @@
       "jsr:@std/jsonc@^0.224.0": "jsr:@std/jsonc@0.224.3",
       "jsr:@std/path@1.0.0-rc.1": "jsr:@std/path@1.0.0-rc.1",
       "jsr:@std/path@^0.222.1": "jsr:@std/path@0.222.1",
-      "jsr:@std/path@^0.224.0": "jsr:@std/path@0.224.0",
+      "jsr:@std/path@^1.0.0": "jsr:@std/path@1.0.1",
       "jsr:@std/semver@^0.222.1": "jsr:@std/semver@0.222.1",
       "jsr:@std/semver@^0.224.3": "jsr:@std/semver@0.224.3",
       "jsr:@std/yaml@^0.224.0": "jsr:@std/yaml@0.224.0",
@@ -222,14 +221,11 @@
           "jsr:@std/assert@^0.222.1"
         ]
       },
-      "@std/path@0.224.0": {
-        "integrity": "55bca6361e5a6d158b9380e82d4981d82d338ec587de02951e2b7c3a24910ee6",
-        "dependencies": [
-          "jsr:@std/assert@^0.224.0"
-        ]
-      },
       "@std/path@1.0.0-rc.1": {
         "integrity": "b8c00ae2f19106a6bb7cbf1ab9be52aa70de1605daeb2dbdc4f87a7cbaf10ff6"
+      },
+      "@std/path@1.0.1": {
+        "integrity": "e061ff02c28481ca49e3a14981875c345e9fc7e973190672782cd0ac8af70428"
       },
       "@std/semver@0.222.1": {
         "integrity": "43c5b526423f48f6f75375c77226646803776fdc678b331f243b0bd667d54c18"
@@ -478,7 +474,7 @@
       "jsr:@std/collections@^1.0.0",
       "jsr:@std/fs@^0.229.0",
       "jsr:@std/jsonc@^0.224.0",
-      "jsr:@std/path@^0.224.0",
+      "jsr:@std/path@^1.0.0",
       "jsr:@std/semver@^0.224.3",
       "jsr:@std/testing@^0.224.0",
       "jsr:@std/yaml@^0.224.0",
