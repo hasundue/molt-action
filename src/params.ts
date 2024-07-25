@@ -24,16 +24,22 @@ export async function fromInputs(inputs: ActionInputs): Promise<ActionParams> {
       root: inputs.root,
     }
     : await findRootConfigLock();
+  const source = inputs.source.length
+    ? inputs.source
+    : (config ? [] : ["./**/*.ts"]);
   const prefix = inputs.prefix.length ? `${inputs.prefix} ` : "";
-  return { ...inputs, config, lock, root, prefix };
+  return { ...inputs, config, lock, root, source, prefix };
 }
 
 async function findConfig(root: string): Promise<string | undefined> {
-  return await exists(join(root, "deno.json"))
-    ? "deno.json"
-    : await exists(join(root, "deno.jsonc"))
-    ? "deno.jsonc"
-    : undefined;
+  const json = join(root, "deno.json");
+  if (await exists(json) && await hasImports(json)) {
+    return "deno.json";
+  }
+  const jsonc = join(root, "deno.jsonc");
+  if (await exists(jsonc) && await hasImports(jsonc)) {
+    return "deno.jsonc";
+  }
 }
 
 async function findLock(root: string): Promise<string | undefined> {
@@ -59,7 +65,7 @@ async function findRootConfigLock(): Promise<
   return { config, lock, root };
 }
 
-async function hasImports(config?: string): Promise<boolean> {
+async function hasImports(config: string): Promise<boolean> {
   if (!config) return false;
   const jsonc = parse(await Deno.readTextFile(config));
   return jsonc !== null && typeof jsonc === "object" && "imports" in jsonc;

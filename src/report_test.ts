@@ -6,71 +6,59 @@ import { createReport } from "./report.ts";
 
 Deno.test("_version - jsr", () => {
   assertEquals(
-    _version({
-      protocol: "jsr:",
-      name: "@molt/core",
-      version: "1.0.0",
-      path: "/testing",
-    }),
+    _version(
+      {
+        specifier: "jsr:@molt/core",
+        kind: "jsr",
+        name: "@molt/core",
+      },
+      "1.0.0",
+    ),
     "[1.0.0](https://jsr.io/@molt/core/1.0.0)",
   );
 });
 
 Deno.test("_version - npm", () => {
   assertEquals(
-    _version({
-      protocol: "npm:",
-      name: "@actions/core",
-      version: "1.0.0",
-      path: "",
-    }),
+    _version(
+      {
+        specifier: "npm:@actions/core",
+        kind: "npm",
+        name: "@actions/core",
+      },
+      "1.0.0",
+    ),
     "[1.0.0](https://www.npmjs.com/package/@actions/core/v/1.0.0)",
   );
 });
 
 Deno.test("_version - https", () => {
   assertEquals(
-    _version({
-      protocol: "https:",
-      name: "deno.land/std",
-      version: "1.0.0",
-      path: "/testing",
-    }),
-    "[1.0.0](https://deno.land/std@1.0.0)",
-  );
-});
-
-Deno.test("_header - without from", () => {
-  assertEquals(
-    _header(
-      [],
+    _version(
       {
-        protocol: "jsr:",
-        name: "@molt/core",
-        version: "1.0.0",
-        path: "",
+        specifier: "https://deno.land/std",
+        kind: "https",
+        name: "deno.land/std",
       },
+      "1.0.0",
     ),
-    "#### :package: @molt/core [1.0.0](https://jsr.io/@molt/core/1.0.0)",
+    "[1.0.0](https://deno.land/std@1.0.0)",
   );
 });
 
 Deno.test("_header - with a single from", () => {
   assertEquals(
     _header(
-      [
-        {
-          protocol: "jsr:",
-          name: "@molt/core",
-          version: "0.18.0",
-          path: "",
-        },
-      ],
       {
-        protocol: "jsr:",
-        name: "@molt/core",
-        version: "1.0.0",
-        path: "",
+        dep: {
+          specifier: "jsr:@molt/core",
+          kind: "jsr",
+          name: "@molt/core",
+        },
+        lock: {
+          from: "0.18.0",
+          to: "1.0.0",
+        },
       },
     ),
     "#### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
@@ -80,68 +68,35 @@ Deno.test("_header - with a single from", () => {
 Deno.test("_header - with multiple froms", () => {
   assertEquals(
     _header(
-      [
-        {
-          protocol: "jsr:",
-          name: "@molt/core",
-          version: "0.18.0",
-          path: "",
-        },
-        {
-          protocol: "jsr:",
-          name: "@molt/core",
-          version: "0.19.0",
-          path: "",
-        },
-      ],
       {
-        protocol: "jsr:",
-        name: "@molt/core",
-        version: "1.0.0",
-        path: "",
+        dep: {
+          specifier: "jsr:@molt/core",
+          kind: "jsr",
+          name: "@molt/core",
+        },
+        lock: {
+          from: "0.18.0, 0.19.0",
+          to: "1.0.0",
+        },
       },
     ),
     "#### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0), [0.19.0](https://jsr.io/@molt/core/0.19.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
   );
 });
 
-Deno.test("_header - with duplicated froms", () => {
-  assertEquals(
-    _header(
-      [
-        {
-          protocol: "jsr:",
-          name: "@molt/core",
-          version: "0.18.0",
-          path: "",
-        },
-        {
-          protocol: "jsr:",
-          name: "@molt/core",
-          version: "0.18.0",
-          path: "",
-        },
-      ],
-      {
-        protocol: "jsr:",
-        name: "@molt/core",
-        version: "1.0.0",
-        path: "",
-      },
-    ),
-    "#### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
-  );
-});
-
 Deno.test("_changelog - non-package", async () => {
   assertEquals(
     await _changelog(
-      [],
       {
-        protocol: "https:",
-        name: "deno.land/std",
-        version: "1.0.0",
-        path: "/testing",
+        dep: {
+          specifier: "https://deno.land/std",
+          kind: "https",
+          name: "deno.land/std",
+        },
+        constraint: {
+          from: "0.222.0",
+          to: "0.224.0",
+        },
       },
     ),
     "",
@@ -151,19 +106,16 @@ Deno.test("_changelog - non-package", async () => {
 Deno.test("_changelog - jsr:@molt/core", async () => {
   assertEquals(
     await _changelog(
-      [
-        {
-          protocol: "jsr:",
-          name: "@molt/core",
-          version: "0.18.0",
-          path: "",
-        },
-      ],
       {
-        protocol: "jsr:",
-        name: "@molt/core",
-        version: "0.18.4",
-        path: "",
+        dep: {
+          specifier: "jsr:@molt/core",
+          kind: "jsr",
+          name: "@molt/core",
+        },
+        lock: {
+          from: "0.18.0",
+          to: "0.18.4",
+        },
       },
     ),
     dedent`
@@ -177,17 +129,20 @@ Deno.test("_changelog - jsr:@molt/core", async () => {
 
 Deno.test("createReport - empty result", async () => {
   assertEquals(
-    await createReport({ updates: [], locks: [] }),
+    await createReport([]),
     "",
   );
 });
 
 Deno.test("createReport", async () => {
-  const actual = await createReport(
-    await collect(
-      new URL("../test/fixtures/deno.json", import.meta.url),
-    ),
-  );
+  const deps = await collect({
+    config: new URL("../test/fixtures/deno.json", import.meta.url),
+  });
+  const updates = (await Promise.all(deps.map((dep) => dep.check())))
+    .filter((it) => it !== undefined);
+
+  const actual = await createReport(updates);
+
   const lines = actual.split("\n");
 
   assert(lines[0].startsWith("#### :package: @actions/core"));

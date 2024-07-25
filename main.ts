@@ -1,12 +1,7 @@
 import actions from "@actions/core";
 import * as github from "@actions/github";
-import {
-  associateByFile,
-  collect,
-  createCommitSequence,
-  execute,
-  write,
-} from "@molt/core";
+import { collect } from "@molt/core";
+import { distinct } from "@std/collections";
 import { expandGlob } from "@std/fs";
 import { join, relative } from "@std/path";
 import { getInputs } from "./src/inputs.ts";
@@ -46,13 +41,20 @@ async function main() {
   }
   actions.debug("paths: " + JSON.stringify(paths));
 
-  const result = await collect(config ?? paths, {
-    resolveLocal: params.resolve,
-    lock: params.lock ? true : false,
-    lockFile: params.lock ? join(params.root, params.lock) : undefined,
+  const all = await collect({
+    config,
+    lock: params.lock ? join(params.root, params.lock) : undefined,
+    source: paths,
   });
 
-  if (result.updates.length === 0) {
+  // TODO: Implement filter
+  const deps = all;
+
+  const updates = (await Promise.all(deps.map((dep) => dep.check())))
+    .filter((it) => it !== undefined)
+    .sort((a, b) => a.dep.name.localeCompare(b.dep.name));
+
+  if (updates.length === 0) {
     for (const output of ["dependencies", "file", "summary", "report"]) {
       actions.setOutput(output, "");
     }
@@ -60,44 +62,33 @@ async function main() {
     return;
   }
 
-  actions.setOutput(
-    "files",
-    associateByFile(result).map((it) => relative(params.root, it.path)),
+  const files = distinct(
+    updates.flatMap((it) => it.dep.refs.map((it) => relative(params.root, it))),
   );
+  if (params.lock) files.push(params.lock);
 
-  if (params.commit) {
-    const { name, email } = parseGitUser(params.committer);
-    await run("git", {
-      args: ["config", "--global", "user.name", name],
-    });
-    await run("git", {
-      args: ["config", "--global", "user.email", email],
-    });
-  }
-
-  const commits = createCommitSequence(result, {
-    composeCommitMessage: ({ version, group }) =>
-      params.prefix + `bump ${group} to ${version!.to}`,
-    groupBy: (update) => update.to.name,
-  });
-
-  actions.setOutput("dependencies", commits.commits.map((it) => it.group));
-  actions.setOutput("summary", createSummary(commits, params));
-  actions.setOutput("report", await createReport(result));
-
-  if (params.commit) {
-    const { name, email } = parseGitUser(params.committer);
-    await run("git", {
-      args: ["config", "--global", "user.name", name],
-    });
-    await run("git", {
-      args: ["config", "--global", "user.email", email],
-    });
-    return execute(commits);
-  }
+  actions.setOutput("dependencies", deps.map((it) => it.name).sort());
+  actions.setOutput("files", files.sort());
+  actions.setOutput("report", await createReport(updates));
+  actions.setOutput("summary", createSummary(updates, params));
 
   if (params.write) {
-    return write(result);
+    for (const update of updates) {
+      await update.write();
+    }
+  }
+
+  if (params.commit) {
+    const { name, email } = parseGitUser(params.committer);
+    await run("git", {
+      args: ["config", "--global", "user.name", name],
+    });
+    await run("git", {
+      args: ["config", "--global", "user.email", email],
+    });
+    for (const update of updates) {
+      await update.commit();
+    }
   }
 }
 

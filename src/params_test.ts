@@ -13,7 +13,7 @@ Deno.test("fromInputs - defaults", async () => {
       prefix: "chore: ",
       lock: "deno.lock",
       root: "test/fixtures",
-      source: ["./**/*.ts"],
+      source: [],
     },
   );
 });
@@ -65,7 +65,7 @@ Deno.test("fromInputs - no lock", async () => {
       prefix: "chore: ",
       lock: undefined,
       root: "test/fixtures",
-      source: ["./**/*.ts"],
+      source: [],
     },
   );
 });

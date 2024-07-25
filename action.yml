@@ -81,10 +81,9 @@ inputs:
 
   source:
     description: >
-      Glob patterns to match source files to update dependencies in. If a Deno
-      configuration file with imports is specified or found, this is only used
-      to update the lock file.
-    default: '**/*.ts'
+      Source files to update dependencies in, specified as glob patterns.
+      If a Deno configuration file with imports is specified or found, this
+      defaults to nothing. Otherwise, it defaults to `./**/*.ts`.
 
   token:
     description: >

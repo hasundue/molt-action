@@ -38,7 +38,7 @@ export const defaults: ActionInputs = {
   prefix: "chore:",
   resolve: false,
   root: "",
-  source: ["./**/*.ts"],
+  source: [],
   write: false,
 };
 
