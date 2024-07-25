@@ -25,7 +25,7 @@
       "jsr:@std/fmt@^0.222.1": "jsr:@std/fmt@0.222.1",
       "jsr:@std/fmt@^0.224.0": "jsr:@std/fmt@0.224.0",
       "jsr:@std/fs@^0.222.1": "jsr:@std/fs@0.222.1",
-      "jsr:@std/fs@^0.224.0": "jsr:@std/fs@0.224.0",
+      "jsr:@std/fs@^0.229.0": "jsr:@std/fs@0.229.3",
       "jsr:@std/internal@^0.224.0": "jsr:@std/internal@0.224.0",
       "jsr:@std/internal@^1.0.1": "jsr:@std/internal@1.0.1",
       "jsr:@std/json@^0.222.1": "jsr:@std/json@0.222.1",
@@ -33,6 +33,7 @@
       "jsr:@std/json@^1.0.0-rc.1": "jsr:@std/json@1.0.0-rc.3",
       "jsr:@std/jsonc@^0.222.1": "jsr:@std/jsonc@0.222.1",
       "jsr:@std/jsonc@^0.224.0": "jsr:@std/jsonc@0.224.3",
+      "jsr:@std/path@1.0.0-rc.1": "jsr:@std/path@1.0.0-rc.1",
       "jsr:@std/path@^0.222.1": "jsr:@std/path@0.222.1",
       "jsr:@std/path@^0.224.0": "jsr:@std/path@0.224.0",
       "jsr:@std/semver@^0.222.1": "jsr:@std/semver@0.222.1",
@@ -171,11 +172,10 @@
           "jsr:@std/path@^0.222.1"
         ]
       },
-      "@std/fs@0.224.0": {
-        "integrity": "52a5ec89731ac0ca8f971079339286f88c571a4d61686acf75833f03a89d8e69",
+      "@std/fs@0.229.3": {
+        "integrity": "783bca21f24da92e04c3893c9e79653227ab016c48e96b3078377ebd5222e6eb",
         "dependencies": [
-          "jsr:@std/assert@^0.224.0",
-          "jsr:@std/path@^0.224.0"
+          "jsr:@std/path@1.0.0-rc.1"
         ]
       },
       "@std/internal@0.224.0": {
@@ -227,6 +227,9 @@
         "dependencies": [
           "jsr:@std/assert@^0.224.0"
         ]
+      },
+      "@std/path@1.0.0-rc.1": {
+        "integrity": "b8c00ae2f19106a6bb7cbf1ab9be52aa70de1605daeb2dbdc4f87a7cbaf10ff6"
       },
       "@std/semver@0.222.1": {
         "integrity": "43c5b526423f48f6f75375c77226646803776fdc678b331f243b0bd667d54c18"
@@ -473,7 +476,7 @@
       "jsr:@molt/lib@^0.19.0-rc.1",
       "jsr:@std/assert@^1.0.0",
       "jsr:@std/collections@^1.0.0",
-      "jsr:@std/fs@^0.224.0",
+      "jsr:@std/fs@^0.229.0",
       "jsr:@std/jsonc@^0.224.0",
       "jsr:@std/path@^0.224.0",
       "jsr:@std/semver@^0.224.3",
