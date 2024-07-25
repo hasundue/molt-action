@@ -37,7 +37,7 @@
       "jsr:@std/path@^1.0.0": "jsr:@std/path@1.0.1",
       "jsr:@std/semver@^0.222.1": "jsr:@std/semver@0.222.1",
       "jsr:@std/semver@^0.224.3": "jsr:@std/semver@0.224.3",
-      "jsr:@std/yaml@^0.224.0": "jsr:@std/yaml@0.224.0",
+      "jsr:@std/yaml@^0.224.0": "jsr:@std/yaml@0.224.3",
       "npm:@actions/core@^1.10.1": "npm:@actions/core@1.10.1",
       "npm:@actions/github@^6.0.0": "npm:@actions/github@6.0.0_@octokit+core@5.2.0",
       "npm:@conventional-commits/parser@^0.4.1": "npm:@conventional-commits/parser@0.4.1",
@@ -233,8 +233,8 @@
       "@std/semver@0.224.3": {
         "integrity": "7bb34b5ad46de2c0c73de0ca3e30081ef64b4361f66abd57c84ff1011c6a1233"
       },
-      "@std/yaml@0.224.0": {
-        "integrity": "9bd99c6beb4d2db98de81c50853f15e68d4c95f38d737934b0e909bbeeff2b6d"
+      "@std/yaml@0.224.3": {
+        "integrity": "9da1ed0094f42ba24570b4d88a094b44a793ac7f2bc085c1939d3ac7e11cc0bb"
       }
     },
     "npm": {
@@ -476,7 +476,7 @@
       "jsr:@std/jsonc@^0.224.0",
       "jsr:@std/path@^1.0.0",
       "jsr:@std/semver@^0.224.3",
-      "jsr:@std/testing@^0.224.0",
+      "jsr:@std/testing@^0.225.0",
       "jsr:@std/yaml@^0.224.0",
       "npm:@actions/core@^1.10.1",
       "npm:@actions/github@^6.0.0",
