@@ -2,13 +2,54 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "jsr:@core/unknownutil@^3.18.0": "jsr:@core/unknownutil@3.18.1",
+      "jsr:@lambdalisue/async@^2.1.1": "jsr:@lambdalisue/async@2.1.1",
+      "jsr:@molt/core@0.18.0": "jsr:@molt/core@0.18.0",
+      "jsr:@molt/lib@^0.18.0": "jsr:@molt/lib@0.18.5",
       "jsr:@std/assert@0.224.0": "jsr:@std/assert@0.224.0",
+      "jsr:@std/assert@^0.222.1": "jsr:@std/assert@0.222.1",
       "jsr:@std/collections@0.224.0": "jsr:@std/collections@0.224.0",
+      "jsr:@std/collections@^0.222.1": "jsr:@std/collections@0.222.1",
+      "jsr:@std/fmt@^0.222.1": "jsr:@std/fmt@0.222.1",
       "jsr:@std/fmt@^0.224.0": "jsr:@std/fmt@0.224.0",
+      "jsr:@std/fs@^0.222.1": "jsr:@std/fs@0.222.1",
       "jsr:@std/internal@^0.224.0": "jsr:@std/internal@0.224.0",
+      "jsr:@std/json@^0.222.1": "jsr:@std/json@0.222.1",
+      "jsr:@std/jsonc@^0.222.1": "jsr:@std/jsonc@0.222.1",
+      "jsr:@std/path@^0.222.1": "jsr:@std/path@0.222.1",
+      "jsr:@std/semver@^0.222.1": "jsr:@std/semver@0.222.1",
       "npm:@actions/core@1.10.0": "npm:@actions/core@1.10.0"
     },
     "jsr": {
+      "@core/unknownutil@3.18.1": {
+        "integrity": "6aaa108b623ff971d062dd345da7ca03b97f61ae3d29c8677bff14fec11f0d76"
+      },
+      "@lambdalisue/async@2.1.1": {
+        "integrity": "1fc9bc6f4ed50215cd2f7217842b18cea80f81c25744f88f8c5eb4be5a1c9ab4"
+      },
+      "@molt/core@0.18.0": {
+        "integrity": "1476bda0c71b70a600ef237619ef33f53868d14196b417e50148061e9308ec59",
+        "dependencies": [
+          "jsr:@core/unknownutil@^3.18.0",
+          "jsr:@lambdalisue/async@^2.1.1",
+          "jsr:@molt/lib@^0.18.0",
+          "jsr:@std/assert@^0.222.1",
+          "jsr:@std/collections@^0.222.1",
+          "jsr:@std/fs@^0.222.1",
+          "jsr:@std/jsonc@^0.222.1",
+          "jsr:@std/path@^0.222.1",
+          "jsr:@std/semver@^0.222.1"
+        ]
+      },
+      "@molt/lib@0.18.5": {
+        "integrity": "dfbcf01f9c57f57d0fc2581ec8ac087f933f17da106feaaf60feced2e8cc6eab"
+      },
+      "@std/assert@0.222.1": {
+        "integrity": "691637161ee584a9919d1f9950ddd1272feb8e0a19e83aa5b7563cedaf73d74c",
+        "dependencies": [
+          "jsr:@std/fmt@^0.222.1"
+        ]
+      },
       "@std/assert@0.224.0": {
         "integrity": "8643233ec7aec38a940a8264a6e3eed9bfa44e7a71cc6b3c8874213ff401967f",
         "dependencies": [
@@ -16,14 +57,46 @@
           "jsr:@std/internal@^0.224.0"
         ]
       },
+      "@std/collections@0.222.1": {
+        "integrity": "234099e08eead6a87e59f4f1abdcba35df5503cfb0e852e77a19f79359ed5760"
+      },
       "@std/collections@0.224.0": {
         "integrity": "d00201d1833c6e05371c7e9f0b178522597b1dda0b0a9ecf0c579414e1dd2770"
+      },
+      "@std/fmt@0.222.1": {
+        "integrity": "ec3382f9b0261c1ab1a5c804aa355d816515fa984cdd827ed32edfb187c0a722"
       },
       "@std/fmt@0.224.0": {
         "integrity": "e20e9a2312a8b5393272c26191c0a68eda8d2c4b08b046bad1673148f1d69851"
       },
+      "@std/fs@0.222.1": {
+        "integrity": "337613f33e6e5970dddb263c3a3e5b8e39c97810ad6fe326cb9f65146af2503b",
+        "dependencies": [
+          "jsr:@std/assert@^0.222.1",
+          "jsr:@std/path@^0.222.1"
+        ]
+      },
       "@std/internal@0.224.0": {
         "integrity": "afc50644f9cdf4495eeb80523a8f6d27226b4b36c45c7c195dfccad4b8509291"
+      },
+      "@std/json@0.222.1": {
+        "integrity": "ce4fb420dfd818fc2569289217842a3e70f249279f038a5e266f7b6572a2829a"
+      },
+      "@std/jsonc@0.222.1": {
+        "integrity": "5d82d64eeb244e88fbb0927587dea7e1feccc6d5d9f49995b9ff5756d01be493",
+        "dependencies": [
+          "jsr:@std/assert@^0.222.1",
+          "jsr:@std/json@^0.222.1"
+        ]
+      },
+      "@std/path@0.222.1": {
+        "integrity": "aad3e9463ca53b0adb25b4d5beb330025674aaa3278da24c1c261d9289a9e48b",
+        "dependencies": [
+          "jsr:@std/assert@^0.222.1"
+        ]
+      },
+      "@std/semver@0.222.1": {
+        "integrity": "43c5b526423f48f6f75375c77226646803776fdc678b331f243b0bd667d54c18"
       }
     },
     "npm": {
