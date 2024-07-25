@@ -20,7 +20,7 @@
       "jsr:@std/assert@^1.0.0": "jsr:@std/assert@1.0.0",
       "jsr:@std/collections@0.224.0": "jsr:@std/collections@0.224.0",
       "jsr:@std/collections@^0.222.1": "jsr:@std/collections@0.222.1",
-      "jsr:@std/collections@^0.224.1": "jsr:@std/collections@0.224.2",
+      "jsr:@std/collections@^1.0.0": "jsr:@std/collections@1.0.5",
       "jsr:@std/collections@^1.0.1": "jsr:@std/collections@1.0.5",
       "jsr:@std/fmt@^0.222.1": "jsr:@std/fmt@0.222.1",
       "jsr:@std/fmt@^0.224.0": "jsr:@std/fmt@0.224.0",
@@ -154,9 +154,6 @@
       },
       "@std/collections@0.224.1": {
         "integrity": "c003ecb1b89e46440cbe692a0603193ed8496d738310a9a2d51b8f8ed8d97a65"
-      },
-      "@std/collections@0.224.2": {
-        "integrity": "e77819455294e92d4e7ddad1dbfd46f94174c09318e541e6621fac4a4d0ab326"
       },
       "@std/collections@1.0.5": {
         "integrity": "ab9eac23b57a0c0b89ba45134e61561f69f3d001f37235a248ed40be260c0c10"
@@ -475,7 +472,7 @@
       "jsr:@molt/integration@^0.18.0-rc.1",
       "jsr:@molt/lib@^0.19.0-rc.1",
       "jsr:@std/assert@^1.0.0",
-      "jsr:@std/collections@^0.224.1",
+      "jsr:@std/collections@^1.0.0",
       "jsr:@std/fs@^0.224.0",
       "jsr:@std/jsonc@^0.224.0",
       "jsr:@std/path@^0.224.0",
