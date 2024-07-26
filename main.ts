@@ -87,7 +87,7 @@ async function main() {
       await update.write();
     }
     if (params.commit) {
-      const message = update.message(params.prefix);
+      const message = update.summary(params.prefix);
       await update.commit(message);
     }
   }
