@@ -18,7 +18,7 @@
     "@actions/github": "npm:@actions/github@^6.0.0",
     "@core/match": "jsr:@core/match@^0.3.1",
     "@core/unknownutil": "jsr:@core/unknownutil@^3.18.1",
-    "@molt/core": "jsr:@molt/core@^0.19.0-rc.7",
+    "@molt/core": "jsr:@molt/core@^0.19.0-rc.8",
     "@molt/integration": "jsr:@molt/integration@^0.18.0-rc.1",
     "@molt/lib": "jsr:@molt/lib@^0.19.0-rc.1",
     "@std/assert": "jsr:@std/assert@^1.0.0",
@@ -32,6 +32,7 @@
   },
   "tasks": {
     "act": "act -j integration",
+    "cache": "deno cache ./main.ts ./src/*.ts",
     "check": "deno check **/*.ts",
     "pre-commit": "deno fmt && deno lint && deno task check && deno task test",
     "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv",
