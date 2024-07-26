@@ -10,7 +10,7 @@
       "jsr:@deno/graph@^0.78.1": "jsr:@deno/graph@0.78.1",
       "jsr:@lambdalisue/async@^2.1.1": "jsr:@lambdalisue/async@2.1.1",
       "jsr:@molt/core@0.18.0": "jsr:@molt/core@0.18.0",
-      "jsr:@molt/core@^0.19.0-rc.7": "jsr:@molt/core@0.19.0-rc.7",
+      "jsr:@molt/core@^0.19.0-rc.8": "jsr:@molt/core@0.19.0-rc.8",
       "jsr:@molt/integration@^0.18.0-rc.1": "jsr:@molt/integration@0.18.0",
       "jsr:@molt/lib@^0.18.0": "jsr:@molt/lib@0.18.5",
       "jsr:@molt/lib@^0.19.0-rc.1": "jsr:@molt/lib@0.19.0-rc.2",
@@ -89,8 +89,8 @@
           "jsr:@std/semver@^0.222.1"
         ]
       },
-      "@molt/core@0.19.0-rc.7": {
-        "integrity": "c84b2cc1bad216e8f0aaf0f97790b048c21ed87e9740185d0999fb0b5cdec8d3",
+      "@molt/core@0.19.0-rc.8": {
+        "integrity": "8a0107148b9ce89da8a3c657b69791368d2860cc14e7a032c3848c1e762ca720",
         "dependencies": [
           "jsr:@core/unknownutil@^3.18.1",
           "jsr:@deno/graph@^0.78.1",
@@ -491,7 +491,7 @@
     "dependencies": [
       "jsr:@core/match@^0.3.1",
       "jsr:@core/unknownutil@^3.18.1",
-      "jsr:@molt/core@^0.19.0-rc.7",
+      "jsr:@molt/core@^0.19.0-rc.8",
       "jsr:@molt/integration@^0.18.0-rc.1",
       "jsr:@molt/lib@^0.19.0-rc.1",
       "jsr:@std/assert@^1.0.0",
