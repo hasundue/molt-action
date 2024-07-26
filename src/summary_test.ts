@@ -13,7 +13,7 @@ Deno.test("summary - single commit", () => {
     createSummary(
       [{
         dep: { name: "@molt/core" },
-        message: () => "update @molt/core to 1.0.0",
+        summary: () => "update @molt/core to 1.0.0",
       }],
       { prefix: "" },
     ),
@@ -27,11 +27,11 @@ Deno.test("summary - two commits", () => {
       [
         {
           dep: { name: "@molt/core" },
-          message: () => "update @molt/core",
+          summary: () => "update @molt/core",
         },
         {
           dep: { name: "@molt/cli" },
-          message: () => "update @molt/cli",
+          summary: () => "update @molt/cli",
         },
       ],
       { prefix: "" },
@@ -46,15 +46,15 @@ Deno.test("summary - three commits", () => {
       [
         {
           dep: { name: "@molt/core" },
-          message: () => "update @molt/core",
+          summary: () => "update @molt/core",
         },
         {
           dep: { name: "@molt/cli" },
-          message: () => "update @molt/cli",
+          summary: () => "update @molt/cli",
         },
         {
           dep: { name: "@molt/lib" },
-          message: () => "update @molt/lib",
+          summary: () => "update @molt/lib",
         },
       ],
       { prefix: "" },
@@ -69,19 +69,19 @@ Deno.test("summary - many commits", () => {
       [
         {
           dep: { name: "@molt/core" },
-          message: () => "update @molt/core",
+          summary: () => "update @molt/core",
         },
         {
           dep: { name: "@molt/cli" },
-          message: () => "update @molt/cli",
+          summary: () => "update @molt/cli",
         },
         {
           dep: { name: "@molt/lib" },
-          message: () => "update @molt/lib",
+          summary: () => "update @molt/lib",
         },
         {
           dep: { name: "@molt/integration" },
-          message: () => "update @molt/integration",
+          summary: () => "update @molt/integration",
         },
       ],
       { prefix: "" },

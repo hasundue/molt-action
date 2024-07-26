@@ -2,7 +2,7 @@ import type * as Molt from "@molt/core/types";
 
 interface Update {
   dep: Pick<Molt.Dependency, "name">;
-  message: Molt.Update["message"];
+  summary: Molt.Update["summary"];
 }
 
 export function createSummary(
@@ -13,7 +13,7 @@ export function createSummary(
     return "All dependencies are up-to-date";
   }
   if (updates.length === 1) {
-    return updates[0].message(options.prefix);
+    return updates[0].summary(options.prefix);
   }
   const deps = new Intl.ListFormat("en", {
     style: "long",
