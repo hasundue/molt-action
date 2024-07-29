@@ -1,5 +1,5 @@
 import { collect } from "@molt/core";
-import { assert, assertEquals } from "@std/assert";
+import { assertEquals } from "@std/assert";
 import dedent from "dedent";
 import { _changelog, _header, _version } from "./report.ts";
 import { createReport } from "./report.ts";
@@ -137,19 +137,19 @@ Deno.test("createReport - empty result", async () => {
 Deno.test("createReport", async () => {
   const deps = await collect({
     config: new URL("../test/fixtures/deno.json", import.meta.url),
+    lock: new URL("../test/fixtures/deno.lock", import.meta.url),
   });
   const updates = (await Promise.all(deps.map((dep) => dep.check())))
     .filter((it) => it !== undefined);
 
   const actual = await createReport(updates);
 
-  const lines = actual.split("\n");
+  assertEquals(
+    actual,
+    dedent`
+      #### :package: @luca/flag [1.0.0](https://jsr.io/@luca/flag/1.0.0) → [1.0.1](https://jsr.io/@luca/flag/1.0.1)
 
-  assert(lines[0].startsWith("#### :package: @actions/core"));
-  assert(lines[2].startsWith("#### :package: @molt/core"));
-  assert(lines[4].startsWith("- feat: "));
-  for (let i = 5; i <= 10; i++) {
-    assert(lines[i].startsWith("- fix: "));
-  }
-  assert(lines[12].startsWith("#### :package: deno.land/x/hono"));
+      #### :package: deno.land/std [0.222.0](https://deno.land/std@0.222.0) → [0.224.0](https://deno.land/std@0.224.0)
+    `,
+  );
 });

@@ -32,7 +32,7 @@ jobs:
         uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.dependencies }}
-          expected: '["@actions/core","@molt/core","deno.land/x/hono"]'
+          expected: '["@luca/flag","deno.land/std"]'
 
       - name: Check updated files
         uses: nick-fields/assert-action@v2
@@ -44,13 +44,13 @@ jobs:
         uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.summary }}
-          expected: 'chore: update dependencies'
+          expected: 'chore: update @luca/flag and deno.land/std'
 
       - name: Check report
         uses: nick-fields/assert-action@v2
         with:
           actual: ${{ steps.action.outputs.report }}
-          expected: '#### :package: @actions/core [1.10.0](https://www.npmjs.com/package/@actions/core/v/1.10.0) → '
+          expected: '#### :package: @luca/flag [1.0.0](https://jsr.io/@luca/flag/1.0.0)'
           comparison: startsWith
 
   test-ts:
