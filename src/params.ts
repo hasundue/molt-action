@@ -49,20 +49,22 @@ async function findLock(root: string): Promise<string | undefined> {
 async function findRootConfigLock(): Promise<
   { config?: string; lock?: string; root: string }
 > {
-  let root = ".";
-  let config, lock;
-  for await (const entry of walk(".")) {
-    if (entry.name === "deno.json" || entry.name === "deno.jsonc") {
-      root = dirname(entry.path);
-      if (await hasImports(entry.path)) {
-        config = entry.name;
-      }
-      if (await exists(entry.path.replace(/\.jsonc?$/, ".lock"))) {
-        lock = "deno.lock";
-      }
+  let root, config, lock;
+  for await (const entry of walk(".", { match: [/\/?deno\.jsonc?$/] })) {
+    if (await hasImports(entry.path) === false) {
+      continue;
+    }
+    const dir = dirname(entry.path);
+    if (root && dir.length > root.length) {
+      continue;
+    }
+    root = dir;
+    config = entry.name;
+    if (await exists(entry.path.replace(/\.jsonc?$/, ".lock"))) {
+      lock = "deno.lock";
     }
   }
-  return { config, lock, root };
+  return { config, lock, root: root ?? "." };
 }
 
 async function hasImports(config: string): Promise<boolean> {

@@ -85,3 +85,15 @@ Deno.test("fromInputs - modules", async () => {
     },
   );
 });
+
+Deno.test("fromInputs - root", async () => {
+  assertObjectMatch(
+    await fromInputs(defaults),
+    {
+      config: "deno.json",
+      lock: "deno.lock",
+      root: ".",
+      source: [],
+    },
+  );
+});
