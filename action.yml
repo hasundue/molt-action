@@ -64,10 +64,6 @@ inputs:
     description: Whether to create a pull request.
     default: true
 
-  resolve-imports:
-    description: Resolve local imports to find dependencies recursively.
-    default: false
-
   root:
     description: >
       Root directory of the relevant source files. Defaults to the shallowest
@@ -148,7 +144,6 @@ runs:
         INPUT_COMMIT-PREFIX: ${{ inputs.commit-prefix }}
         INPUT_CONFIG: ${{ inputs.config }}
         INPUT_LOCK: ${{ inputs.lock }}
-        INPUT_RESOLVE-IMPORTS: ${{ inputs.resolve-imports }}
         INPUT_ROOT: ${{ inputs.root }}
         INPUT_SOURCE: ${{ inputs.source }}
         INPUT_WRITE: ${{ inputs.pr || inputs.write }}

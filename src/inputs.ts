@@ -16,9 +16,6 @@ export interface ActionInputs {
   /** @default "chore:" */
   prefix: string;
 
-  /** @default false */
-  resolve: boolean;
-
   /** @default "" */
   root: string;
 
@@ -36,7 +33,6 @@ export const defaults: ActionInputs = {
   config: "",
   lock: "",
   prefix: "chore:",
-  resolve: false,
   root: "",
   source: [],
   write: false,
@@ -57,7 +53,6 @@ export function getInputs(): ActionInputs {
     config: getMaybeBooleanInput("config"),
     lock: getMaybeBooleanInput("lock"),
     prefix: actions.getInput("commit-prefix"),
-    resolve: actions.getBooleanInput("resolve-imports"),
     root: actions.getInput("root"),
     source: actions.getMultilineInput("source"),
     write: actions.getBooleanInput("write"),
