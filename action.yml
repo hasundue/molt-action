@@ -24,7 +24,7 @@ inputs:
 
   cache-key-suffix:
     description: Suffix for the cache key (development purposes only).
-    default: 1.0.0-rc.11
+    default: 1.0.0-rc.12
 
   commit:
     description: Whether to commit changes locally.
@@ -73,7 +73,7 @@ inputs:
   script:
     description: >
       Specifier for the main script to run (development purposes only).
-    default: jsr:@molt/action@1.0.0-rc.11
+    default: jsr:@molt/action@1.0.0-rc.12
 
   source:
     description: >
