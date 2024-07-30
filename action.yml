@@ -130,7 +130,6 @@ runs:
           ~/.deno
           ~/.local/share/deno-wasmbuild
         key: molt-action-${{ inputs.cache-key-suffix }}
-        restore-keys: molt-action
 
     - name: Run main script
       id: main
