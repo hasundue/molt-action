@@ -141,9 +141,7 @@ Deno.test("createReport", async () => {
   });
   const updates = (await Promise.all(deps.map((dep) => dep.check())))
     .filter((it) => it !== undefined);
-
   const actual = await createReport(updates);
-
   assertEquals(
     actual,
     dedent`
