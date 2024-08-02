@@ -1,4 +1,3 @@
-import actions from "@actions/core";
 import type * as Molt from "@molt/core/types";
 import {
   compareCommits,
@@ -93,12 +92,9 @@ export async function _changelog(update: Update): Promise<string> {
     // The dependency was newly added in this update
     return "";
   }
-  const messages: string[] = [];
-  try {
-    // The refs might not exist
-    messages.push(...await compareCommits(repo, oldest, to));
-  } catch {
-    actions.info(`Failed to fetch commits for ${pkg.name}`);
+  const messages = await compareCommits(repo, oldest, to);
+  if (!messages.length) {
+    // Couldn't find tags for the given versions
     return "";
   }
   const root = await resolvePackageRoot(repo, pkg, to);
