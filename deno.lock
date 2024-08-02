@@ -5,11 +5,10 @@
       "jsr:@core/match@^0.3.1": "jsr:@core/match@0.3.1",
       "jsr:@core/unknownutil@3.18.0": "jsr:@core/unknownutil@3.18.0",
       "jsr:@core/unknownutil@^3.18.1": "jsr:@core/unknownutil@3.18.1",
-      "jsr:@deno/graph@^0.80.0": "jsr:@deno/graph@0.80.1",
       "jsr:@deno/graph@^0.81.0": "jsr:@deno/graph@0.81.0",
-      "jsr:@molt/core@^0.19.0": "jsr:@molt/core@0.19.1",
-      "jsr:@molt/core@^0.19.1": "jsr:@molt/core@0.19.1",
-      "jsr:@molt/integration@^0.19.0": "jsr:@molt/integration@0.19.0",
+      "jsr:@molt/core@^0.19.0": "jsr:@molt/core@0.19.3",
+      "jsr:@molt/core@^0.19.1": "jsr:@molt/core@0.19.3",
+      "jsr:@molt/integration@^0.19.0": "jsr:@molt/integration@0.19.3",
       "jsr:@molt/lib@^0.19.0": "jsr:@molt/lib@0.19.0",
       "jsr:@std/assert@0.224.0": "jsr:@std/assert@0.224.0",
       "jsr:@std/assert@^1.0.0": "jsr:@std/assert@1.0.1",
@@ -30,7 +29,7 @@
       "npm:@actions/core@^1.10.1": "npm:@actions/core@1.10.1",
       "npm:@actions/github@^6.0.0": "npm:@actions/github@6.0.0_@octokit+core@5.2.0",
       "npm:@conventional-commits/parser@^0.4.1": "npm:@conventional-commits/parser@0.4.1",
-      "npm:@octokit/rest@^21.0.0": "npm:@octokit/rest@21.0.1_@octokit+core@6.1.2",
+      "npm:@octokit/rest@^21.0.0": "npm:@octokit/rest@21.0.1",
       "npm:dedent@^1.5.3": "npm:dedent@1.5.3",
       "npm:ts-toolbelt@9.6.0": "npm:ts-toolbelt@9.6.0"
     },
@@ -48,28 +47,11 @@
       "@core/unknownutil@3.18.1": {
         "integrity": "6aaa108b623ff971d062dd345da7ca03b97f61ae3d29c8677bff14fec11f0d76"
       },
-      "@deno/graph@0.80.1": {
-        "integrity": "a7aca57c5f91ce41e01b788a1dad591734df7f0d2310cf072800cdc57986df23"
-      },
       "@deno/graph@0.81.0": {
         "integrity": "2e2c3c9b5569bc759c132727a7d372e6d5c4dc792f8ba15c1a99c1226d6d0a56"
       },
       "@molt/core@0.19.0": {
         "integrity": "dfa8a86a8c4e7756fefda2bd444d86b8fb11bc1dbfa782ad0f80af07587f8886",
-        "dependencies": [
-          "jsr:@core/unknownutil@^3.18.1",
-          "jsr:@deno/graph@^0.80.0",
-          "jsr:@molt/lib@^0.19.0",
-          "jsr:@std/assert@^1.0.0",
-          "jsr:@std/collections@^1.0.1",
-          "jsr:@std/fs@^1.0.0",
-          "jsr:@std/jsonc@^1.0.0",
-          "jsr:@std/path@^1.0.0",
-          "jsr:@std/semver@^0.224.3"
-        ]
-      },
-      "@molt/core@0.19.1": {
-        "integrity": "a2e2d6c0ced2b8b4eee871fef7f78ec9488b2d3eff07ba6091de50f162df9560",
         "dependencies": [
           "jsr:@core/unknownutil@^3.18.1",
           "jsr:@deno/graph@^0.80.0",
@@ -96,14 +78,15 @@
           "jsr:@std/semver@^0.224.3"
         ]
       },
-      "@molt/integration@0.19.0": {
-        "integrity": "f0c299e1e4b44d814465b51491fff3f3dd596900983a993dc67449955f6d1f1d",
+      "@molt/integration@0.19.3": {
+        "integrity": "3c924aed2a2763416034d8075237fa535bc05192b3d9d45afd04ffa4c67e8bec",
         "dependencies": [
           "jsr:@core/match@^0.3.1",
           "jsr:@core/unknownutil@^3.18.1",
           "jsr:@molt/core@^0.19.0",
           "jsr:@std/jsonc@^1.0.0",
           "jsr:@std/path@^1.0.0",
+          "jsr:@std/semver@^0.224.3",
           "npm:@octokit/rest@^21.0.0"
         ]
       },
@@ -287,10 +270,9 @@
         "integrity": "sha512-QBhVjcUa9W7Wwhm6DBFu6ZZ+1/t/oYxqc2tp81Pi41YNuJinbFRx8B133qVOrAaBbF7D/m0Et6f9/pZt9Rc+tg==",
         "dependencies": {}
       },
-      "@octokit/plugin-paginate-rest@11.3.3_@octokit+core@6.1.2": {
+      "@octokit/plugin-paginate-rest@11.3.3": {
         "integrity": "sha512-o4WRoOJZlKqEEgj+i9CpcmnByvtzoUYC6I8PD2SA95M+BJ2x8h7oLcVOg9qcowWXBOdcTRsMZiwvM3EyLm9AfA==",
         "dependencies": {
-          "@octokit/core": "@octokit/core@6.1.2",
           "@octokit/types": "@octokit/types@13.5.0"
         }
       },
@@ -301,11 +283,9 @@
           "@octokit/types": "@octokit/types@12.6.0"
         }
       },
-      "@octokit/plugin-request-log@5.3.1_@octokit+core@6.1.2": {
+      "@octokit/plugin-request-log@5.3.1": {
         "integrity": "sha512-n/lNeCtq+9ofhC15xzmJCNKP2BWTv8Ih2TTy+jatNCCq/gQP/V7rK3fjIfuz0pDWDALO/o/4QY4hyOF6TQQFUw==",
-        "dependencies": {
-          "@octokit/core": "@octokit/core@6.1.2"
-        }
+        "dependencies": {}
       },
       "@octokit/plugin-rest-endpoint-methods@10.4.1_@octokit+core@5.2.0": {
         "integrity": "sha512-xV1b+ceKV9KytQe3zCVqjg+8GTGfDYwaT1ATU5isiUyVtlVAO3HNdzpS4sr4GBx4hxQ46s7ITtZrAsxG22+rVg==",
@@ -314,10 +294,9 @@
           "@octokit/types": "@octokit/types@12.6.0"
         }
       },
-      "@octokit/plugin-rest-endpoint-methods@13.2.4_@octokit+core@6.1.2": {
+      "@octokit/plugin-rest-endpoint-methods@13.2.4": {
         "integrity": "sha512-gusyAVgTrPiuXOdfqOySMDztQHv6928PQ3E4dqVGEtOvRXAKRbJR4b1zQyniIT9waqaWk/UDaoJ2dyPr7Bk7Iw==",
         "dependencies": {
-          "@octokit/core": "@octokit/core@6.1.2",
           "@octokit/types": "@octokit/types@13.5.0"
         }
       },
@@ -353,13 +332,13 @@
           "universal-user-agent": "universal-user-agent@7.0.2"
         }
       },
-      "@octokit/rest@21.0.1_@octokit+core@6.1.2": {
+      "@octokit/rest@21.0.1": {
         "integrity": "sha512-RWA6YU4CqK0h0J6tfYlUFnH3+YgBADlxaHXaKSG+BVr2y4PTfbU2tlKuaQoQZ83qaTbi4CUxLNAmbAqR93A6mQ==",
         "dependencies": {
           "@octokit/core": "@octokit/core@6.1.2",
-          "@octokit/plugin-paginate-rest": "@octokit/plugin-paginate-rest@11.3.3_@octokit+core@6.1.2",
-          "@octokit/plugin-request-log": "@octokit/plugin-request-log@5.3.1_@octokit+core@6.1.2",
-          "@octokit/plugin-rest-endpoint-methods": "@octokit/plugin-rest-endpoint-methods@13.2.4_@octokit+core@6.1.2"
+          "@octokit/plugin-paginate-rest": "@octokit/plugin-paginate-rest@11.3.3",
+          "@octokit/plugin-request-log": "@octokit/plugin-request-log@5.3.1",
+          "@octokit/plugin-rest-endpoint-methods": "@octokit/plugin-rest-endpoint-methods@13.2.4"
         }
       },
       "@octokit/types@12.6.0": {
