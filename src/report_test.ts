@@ -127,6 +127,25 @@ Deno.test("_changelog - jsr:@molt/core", async () => {
   );
 });
 
+Deno.test("_changelog - jsr:@core/unknownutil", async () => {
+  assertEquals(
+    await _changelog(
+      {
+        dep: {
+          specifier: "jsr:@core/unknownutil",
+          kind: "jsr",
+          name: "@core/unknownutil",
+        },
+        lock: {
+          from: "3.18.0",
+          to: "3.18.1",
+        },
+      },
+    ),
+    "", // the repository uses gitmoji, which is not supported yet
+  );
+});
+
 Deno.test("createReport - empty result", async () => {
   assertEquals(
     await createReport([]),
