@@ -1,12 +1,11 @@
 {
   "name": "@molt/action",
   "version": "1.0.0-rc.14",
-  "exports": "./main.ts",
+  "exports": "./src/main.ts",
   "publish": {
     "include": [
       "README.md",
       "LICENSE",
-      "main.ts",
       "src/*.ts"
     ],
     "exclude": [
@@ -31,7 +30,7 @@
   },
   "tasks": {
     "act": "act -j integration",
-    "cache": "deno cache ./main.ts ./src/*.ts",
+    "cache": "deno cache ./src/*.ts",
     "check": "deno check **/*.ts",
     "pre-commit": "deno fmt && deno lint && deno task check && deno task test",
     "test": "deno test --allow-env --allow-read --allow-write=. --allow-net --allow-run=deno --env --no-check --unstable-kv",

@@ -4,11 +4,11 @@ import { collect } from "@molt/core";
 import { distinct } from "@std/collections";
 import { expandGlob } from "@std/fs";
 import { join, relative } from "@std/path";
-import { getInputs } from "./src/inputs.ts";
-import { fromInputs } from "./src/params.ts";
-import { createReport } from "./src/report.ts";
-import { parseGitUser } from "./src/strings.ts";
-import { createSummary } from "./src/summary.ts";
+import { getInputs } from "./inputs.ts";
+import { fromInputs } from "./params.ts";
+import { createReport } from "./report.ts";
+import { parseGitUser } from "./strings.ts";
+import { createSummary } from "./summary.ts";
 
 async function run(
   command: string,

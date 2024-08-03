@@ -26,7 +26,7 @@ jobs:
           cache-key-suffix: ${{ hashFiles('deno.lock') }}
           pull-request: false
           root: 'test/fixtures'
-          script: 'main.ts'
+          script: 'src/main.ts'
 
       - name: Check updated dependencies
         uses: nick-fields/assert-action@v2
@@ -68,7 +68,7 @@ jobs:
           config: false
           pull-request: false
           root: 'test/fixtures'
-          script: 'main.ts'
+          script: 'src/main.ts'
 
       - name: Check updated dependencies
         uses: nick-fields/assert-action@v2
