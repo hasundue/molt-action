@@ -44,9 +44,9 @@ and passed through to it.
 
 ### Outputs
 
-| Name           | Description                                              |
-| -------------- | -------------------------------------------------------- |
-| `dependencies` | A JSON list of updated dependencies, or an empty string. |
-| `files`        | A list of updated files.                                 |
-| `report`       | A summary of the changes made.                           |
-| `summary`      | A summary of the changes made in markdown format.        |
+| Name           | Description                                               |
+| -------------- | --------------------------------------------------------- |
+| `dependencies` | A JSON list of updated dependencies, or an empty string.  |
+| `files`        | A list of updated files.                                  |
+| `report`       | A detailed report of the changes made in Markdown format. |
+| `summary`      | A summary of the changes made.                            |
