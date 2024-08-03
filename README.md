@@ -1,9 +1,5 @@
 # 🦕 molt-action
 
-> [!WARNING]\
-> Not released yet. You may try the `v1-rc` tag, but it is not guaranteed to
-> work.
-
 A GitHub Action to create a pull request to update dependencies in a Deno
 project with [molt](https://github.com/hasundue/molt). See
 [Pull requests](https://github.com/hasundue/molt-action/pulls) for an example.
