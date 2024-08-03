@@ -12,7 +12,7 @@ runs-on: ubuntu-latest
 steps:
     - uses: actions/checkout@v4
 
-    - uses: hasundue/molt-action@v1-rc
+    - uses: hasundue/molt-action@v1
       with:
         # optional inputs
 ```
