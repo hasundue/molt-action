@@ -7,7 +7,6 @@ defaults:
   run:
     shell: bash
 
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -44,7 +43,7 @@ jobs:
 
       - name: Move the major release tag
         run: |
-          tag=v$(jq -r '.version' deno.json | cut -d '.' -f 1)-rc
+          tag=v$(jq -r '.version' deno.json | cut -d '.' -f 1)
           git tag -d $tag 2>/dev/null || echo "Tag $tag not found"
           git push origin :refs/tags/$tag
           git tag $tag
@@ -52,7 +51,7 @@ jobs:
 
       - name: Move the minor release tag
         run: |
-          tag=v$(jq -r '.version' deno.json | cut -d '.' -f 1,2)-rc
+          tag=v$(jq -r '.version' deno.json | cut -d '.' -f 1,2)
           git tag -d $tag 2>/dev/null || echo "Tag $tag not found"
           git push origin :refs/tags/$tag
           git tag $tag
