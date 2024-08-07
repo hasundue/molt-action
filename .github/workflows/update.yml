@@ -1,0 +1,19 @@
+name: update
+
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hasundue/molt-action@v1
+        with:
+          token: ${{ secrets.PAT_UPDATE }}
