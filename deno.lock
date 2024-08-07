@@ -19,7 +19,7 @@
       "jsr:@std/collections@^1.0.0": "jsr:@std/collections@1.0.5",
       "jsr:@std/collections@^1.0.1": "jsr:@std/collections@1.0.5",
       "jsr:@std/fmt@^0.224.0": "jsr:@std/fmt@0.224.0",
-      "jsr:@std/fs@^1.0.0": "jsr:@std/fs@1.0.0",
+      "jsr:@std/fs@^1.0.0": "jsr:@std/fs@1.0.1",
       "jsr:@std/internal@^0.224.0": "jsr:@std/internal@0.224.0",
       "jsr:@std/internal@^1.0.1": "jsr:@std/internal@1.0.1",
       "jsr:@std/json@^1.0.0": "jsr:@std/json@1.0.0",
