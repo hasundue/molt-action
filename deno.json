@@ -30,6 +30,7 @@
   },
   "tasks": {
     "act": "act -j integration",
+    "bump": "deno run --allow-read=. --allow-write=./deno.json,./action.yml --allow-run=git ./tools/bump.ts",
     "cache": "deno cache ./src/*.ts",
     "check": "deno check **/*.ts",
     "pre-commit": "deno fmt && deno lint && deno task check && deno task test",
