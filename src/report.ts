@@ -49,6 +49,9 @@ export function _version(
   if (!version) {
     return "";
   }
+  if (!SemVer.tryParse(version)) {
+    return version;
+  }
   switch (kind) {
     case "jsr":
       return `[${version}](https://jsr.io/${name}/${version})`;

@@ -17,7 +17,7 @@
     "@actions/github": "npm:@actions/github@^6.0.0",
     "@core/match": "jsr:@core/match@^0.3.1",
     "@core/unknownutil": "jsr:@core/unknownutil@^3.18.1",
-    "@molt/core": "jsr:@molt/core@^0.19.1",
+    "@molt/core": "jsr:@molt/core@^0.19.8",
     "@molt/integration": "jsr:@molt/integration@^0.19.0",
     "@molt/lib": "jsr:@molt/lib@^0.19.0",
     "@std/assert": "jsr:@std/assert@^1.0.0",

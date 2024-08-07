@@ -5,6 +5,7 @@
       "jsr:@core/match@^0.3.1": "jsr:@core/match@0.3.1",
       "jsr:@core/unknownutil@3.18.0": "jsr:@core/unknownutil@3.18.0",
       "jsr:@core/unknownutil@^3.18.1": "jsr:@core/unknownutil@3.18.1",
+      "jsr:@core/unknownutil@^4.0.0": "jsr:@core/unknownutil@4.0.1",
       "jsr:@deno/graph@^0.81.0": "jsr:@deno/graph@0.81.0",
       "jsr:@molt/core@^0.19.0": "jsr:@molt/core@0.19.3",
       "jsr:@molt/core@^0.19.1": "jsr:@molt/core@0.19.3",
@@ -25,6 +26,7 @@
       "jsr:@std/path@^1.0.0": "jsr:@std/path@1.0.2",
       "jsr:@std/path@^1.0.2": "jsr:@std/path@1.0.2",
       "jsr:@std/semver@^0.224.3": "jsr:@std/semver@0.224.3",
+      "jsr:@std/semver@^1.0.0": "jsr:@std/semver@1.0.1",
       "jsr:@std/streams@^1.0.0": "jsr:@std/streams@1.0.0",
       "npm:@actions/core@^1.10.1": "npm:@actions/core@1.10.1",
       "npm:@actions/github@^6.0.0": "npm:@actions/github@6.0.0_@octokit+core@5.2.0",
@@ -47,8 +49,14 @@
       "@core/unknownutil@3.18.1": {
         "integrity": "6aaa108b623ff971d062dd345da7ca03b97f61ae3d29c8677bff14fec11f0d76"
       },
+      "@core/unknownutil@4.0.1": {
+        "integrity": "5e08141ea8284d064bc4ee8c70aab42825355fb1399eaeb6140936f5f763f42d"
+      },
       "@deno/graph@0.81.0": {
         "integrity": "2e2c3c9b5569bc759c132727a7d372e6d5c4dc792f8ba15c1a99c1226d6d0a56"
+      },
+      "@deno/graph@0.81.1": {
+        "integrity": "0a513d58e06c1f593b782ef893583c61b7ebdbfe471ee96eb53b1efe4702ae30"
       },
       "@molt/core@0.19.0": {
         "integrity": "dfa8a86a8c4e7756fefda2bd444d86b8fb11bc1dbfa782ad0f80af07587f8886",
@@ -76,6 +84,20 @@
           "jsr:@std/jsonc@^1.0.0",
           "jsr:@std/path@^1.0.0",
           "jsr:@std/semver@^0.224.3"
+        ]
+      },
+      "@molt/core@0.19.8": {
+        "integrity": "7af509a9c7ff9b58e12c5235dc7fd09986a599baefb862e91a95b8f5d4f0585e",
+        "dependencies": [
+          "jsr:@core/unknownutil@^4.0.0",
+          "jsr:@deno/graph@^0.81.0",
+          "jsr:@molt/lib@^0.19.0",
+          "jsr:@std/assert@^1.0.0",
+          "jsr:@std/collections@^1.0.1",
+          "jsr:@std/fs@^1.0.0",
+          "jsr:@std/jsonc@^1.0.0",
+          "jsr:@std/path@^1.0.0",
+          "jsr:@std/semver@^1.0.0"
         ]
       },
       "@molt/integration@0.19.5": {
@@ -169,6 +191,9 @@
       },
       "@std/semver@0.224.3": {
         "integrity": "7bb34b5ad46de2c0c73de0ca3e30081ef64b4361f66abd57c84ff1011c6a1233"
+      },
+      "@std/semver@1.0.1": {
+        "integrity": "f0c9b41b70e27e8cdfe9252b486c55a727d66ead72625e0fa1aae75f45ca15e1"
       },
       "@std/streams@1.0.0": {
         "integrity": "350242b8fad9874ed45f3c42df3d132bd0a958f8a8bae9bbfa1ff039716aa6fb",
@@ -447,7 +472,7 @@
     "dependencies": [
       "jsr:@core/match@^0.3.1",
       "jsr:@core/unknownutil@^3.18.1",
-      "jsr:@molt/core@^0.19.1",
+      "jsr:@molt/core@^0.19.8",
       "jsr:@molt/integration@^0.19.0",
       "jsr:@molt/lib@^0.19.0",
       "jsr:@std/assert@^1.0.0",

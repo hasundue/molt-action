@@ -46,6 +46,20 @@ Deno.test("_version - https", () => {
   );
 });
 
+Deno.test("_version - constraint", () => {
+  assertEquals(
+    _version(
+      {
+        specifier: "jsr:@molt/core",
+        kind: "jsr",
+        name: "@molt/core",
+      },
+      "^1.0.0",
+    ),
+    "^1.0.0",
+  );
+});
+
 Deno.test("_header - with a single from", () => {
   assertEquals(
     _header(
@@ -81,6 +95,25 @@ Deno.test("_header - with multiple froms", () => {
       },
     ),
     "#### :package: @molt/core [0.18.0](https://jsr.io/@molt/core/0.18.0), [0.19.0](https://jsr.io/@molt/core/0.19.0) → [1.0.0](https://jsr.io/@molt/core/1.0.0)",
+  );
+});
+
+Deno.test("_header - constraints", () => {
+  assertEquals(
+    _header(
+      {
+        dep: {
+          specifier: "jsr:@molt/core",
+          kind: "jsr",
+          name: "@molt/core",
+        },
+        constraint: {
+          from: "^0.18.0",
+          to: "^1.0.0",
+        },
+      },
+    ),
+    "#### :package: @molt/core ^0.18.0 → ^1.0.0",
   );
 });
 
