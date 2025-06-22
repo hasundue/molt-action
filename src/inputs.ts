@@ -22,6 +22,9 @@ export interface ActionInputs {
   /** @default [`./**\/*.ts`] */
   source: string[];
 
+  /** @default [] */
+  exclude: string[];
+
   /** @default false */
   write: boolean;
 }
@@ -35,6 +38,7 @@ export const defaults: ActionInputs = {
   prefix: "chore:",
   root: "",
   source: [],
+  exclude: [],
   write: false,
 };
 
@@ -55,6 +59,7 @@ export function getInputs(): ActionInputs {
     prefix: actions.getInput("commit-prefix"),
     root: actions.getInput("root"),
     source: actions.getMultilineInput("source"),
+    exclude: actions.getMultilineInput("exclude"),
     write: actions.getBooleanInput("write"),
   };
 }

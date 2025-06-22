@@ -81,6 +81,12 @@ inputs:
       If a Deno configuration file with imports is specified or found, this
       defaults to nothing. Otherwise, it defaults to `./**/*.ts`.
 
+  exclude:
+    description: >
+      Files to exclude from dependency updates, specified as glob patterns.
+      Files matching these patterns will be skipped even if they match the source patterns.
+      If a directory path is specified, all files under that directory will be excluded.
+
   token:
     description: >
       GitHub token with permissions `contents: write` and `pull-requests: write`
@@ -145,8 +151,8 @@ runs:
         INPUT_LOCK: ${{ inputs.lock }}
         INPUT_ROOT: ${{ inputs.root }}
         INPUT_SOURCE: ${{ inputs.source }}
+        INPUT_EXCLUDE: ${{ inputs.exclude }}
         INPUT_WRITE: ${{ inputs.pr || inputs.write }}
-
 
     - name: Create a pull request
       uses: peter-evans/create-pull-request@v6
