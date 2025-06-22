@@ -92,6 +92,6 @@ if (import.meta.main) {
   try {
     await main();
   } catch (error) {
-    actions.setFailed(error.message);
+    actions.setFailed(error instanceof Error ? error.message : String(error));
   }
 }
