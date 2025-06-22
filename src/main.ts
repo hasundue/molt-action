@@ -2,10 +2,10 @@ import actions from "@actions/core";
 import * as github from "@actions/github";
 import { collect } from "@molt/core";
 import { distinct } from "@std/collections";
-import { expandGlob } from "@std/fs";
 import { join, relative } from "@std/path";
 import { getInputs } from "./inputs.ts";
 import { fromInputs } from "./params.ts";
+import { collectFromParams } from "./paths.ts";
 import { createReport } from "./report.ts";
 import { parseGitUser } from "./strings.ts";
 import { createSummary } from "./summary.ts";
@@ -33,12 +33,7 @@ async function main() {
 
   const config = params.config ? join(params.root, params.config) : undefined;
 
-  const paths: string[] = [];
-  for (const source of params.source) {
-    for await (const entry of expandGlob(source, { root: params.root })) {
-      if (entry.isFile) paths.push(entry.path);
-    }
-  }
+  const paths = await collectFromParams(params);
   actions.debug("paths: " + JSON.stringify(paths));
 
   const all = await collect({
